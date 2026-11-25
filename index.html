@@ -119,7 +119,6 @@ button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid v
 .gauge{position:absolute;top:44px;left:12px;z-index:4;width:88px}
 .gauge .needle{transform-origin:50px 52px;transition:transform 1s cubic-bezier(.4,1.8,.5,1)}
 .gauge-read{position:absolute;top:134px;left:6px;z-index:4;width:100px;text-align:center;font-family:var(--plate);font-size:11px;letter-spacing:.05em;color:#F6DC8E;text-shadow:0 1px 0 #000}
-.hint-drag{position:absolute;top:46px;right:14px;z-index:4;font-size:10.5px;padding:3px 8px;border-radius:7px}
 .nozzle{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:84px;z-index:3}
 .stream{position:absolute;left:50%;top:86px;width:16px;margin-left:-8px;height:0;z-index:1;transition:height .35s ease-in}
 .stream.is-on{height:30px}
@@ -149,7 +148,10 @@ button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid v
 @keyframes fall{0%{transform:translateY(-240px) rotate(-60deg);opacity:0}60%{opacity:1}100%{transform:none}}
 .placeholder{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:15px;opacity:.85;text-align:center;padding:0 20px}
 .print-layer{position:absolute;inset:8% 6%;display:grid;place-items:center;text-align:center;overflow:hidden;border-radius:6px}
-.print-layer img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+.print-layer.full{inset:0;border-radius:4px}
+.print-img{position:absolute;inset:0;filter:drop-shadow(0 -1px 0 rgba(0,0,0,.45)) drop-shadow(0 1px 0 rgba(255,255,255,.18))}
+.print-img i{position:absolute;inset:0;display:block;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.face.back .segs{z-index:1;pointer-events:none}
 .print-text{line-height:1.05;word-break:break-word;padding:0 6px}
 .stamp{animation:stamp .5s cubic-bezier(.3,1.8,.5,1)}
 @keyframes stamp{0%{transform:scale(1.5);opacity:0}100%{transform:none;opacity:1}}
@@ -265,7 +267,7 @@ button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid v
 footer{margin-top:26px;font-size:13px;color:var(--muted);text-align:center;font-weight:600}
 
 @media (max-width:880px){.stage{min-height:360px}.scene{top:92px;height:200px}.bar3d{width:min(260px,64vw)}.belt-wrap{bottom:40px}.nozzle{width:66px}.stream{top:72px}.stream.is-on{height:24px}.gauge{width:50px;top:34px;left:10px}.gauge-read{display:none}}
-@media (max-width:460px){.jars{gap:6px}.jar .jl{font-size:9.5px;overflow-wrap:anywhere}.tank .tag{font-size:12px;padding:3px 8px}.tank small{display:none}.hint-drag{display:none}}
+@media (max-width:460px){.jars{gap:6px}.jar .jl{font-size:9.5px;overflow-wrap:anywhere}.tank .tag{font-size:12px;padding:3px 8px}.tank small{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.liquid{clip-path:inset(0 0 0 0)}}
 </style>
 
@@ -343,6 +345,79 @@ footer{margin-top:16px}
 .panel.is-sharing .ticket,.panel.is-sharing .panel-lead-done{display:none}
 .story{padding:8px}.story .s-top{font-size:11px;top:6px}.story .s-name{font-size:12px;bottom:8px}
 }
+/* Allergener */
+.als{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.al{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:800;line-height:1.2;padding:2px 7px;border-radius:20px;background:#FCE3C4;color:#7A3A06;border:1px solid #E7A960;white-space:nowrap}
+.al::before{content:"\26A0";font-size:10px}
+.al.tr{background:#FFF7E6;color:#7A5A1C;border-style:dashed}
+.al.none{background:#E6F1E3;color:#2E5228;border-color:#9CC096}
+.al.none::before{content:"\2713"}
+.jtxt{display:flex;flex-direction:column;min-width:0}
+.alfilter{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px;padding:8px 10px;border-radius:12px;background:#FFF4E2;border:1px solid #E7C99A}
+.alfilter .lbl{font-size:13px;font-weight:800;margin-right:2px}
+.avoid{border:1.5px solid #CDB58F;background:#fff;border-radius:20px;padding:4px 11px;font-size:13px;font-weight:800;min-height:34px}
+.avoid[aria-pressed=true]{background:#99354b;border-color:#99354b;color:#fff}
+.avoid[aria-pressed=true]::before{content:"\2713  "}
+.alnote-out:empty{display:none}
+.alnote{width:100%;margin:6px 0 0;font-size:12.5px;font-weight:600;color:var(--muted)}
+.alnote b{color:#8e2940}
+.sum-al{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed #dfd1b9;font-size:13px;font-weight:800}
+.sum-al .als{margin:0;justify-content:flex-start}
+.decl-al{background:#FFF4E2;border:2px solid #E7A960;border-radius:14px;padding:10px 14px;margin:0 0 12px}
+.decl-al h4{margin:0 0 6px;font-size:15px;display:flex;align-items:center;gap:6px}
+.decl-al .als{justify-content:flex-start;margin:0 0 6px}
+.decl-al .al{font-size:13px;padding:3px 10px}
+.decl-al p{margin:0;font-size:12px;color:var(--muted)}
+.ink-note{font-size:12.5px;color:var(--muted);font-weight:600;margin:6px 0 0}
+@media(max-width:620px){.workspace-intro{flex-wrap:wrap;gap:8px}.demo-tag{white-space:normal}.jar .als{justify-content:flex-start}.jar .jtxt{flex:1}.jar .al{white-space:normal;font-size:10.5px;padding:2px 6px}}
+
+/* Bildeutsnitt */
+.crop-frame{position:relative;width:100%;aspect-ratio:330/210;border-radius:10px;overflow:hidden;cursor:grab;touch-action:none;user-select:none;box-shadow:inset 0 0 0 3px rgba(0,0,0,.2),0 3px 10px rgba(60,30,10,.2);isolation:isolate}
+.crop-frame.grabbing{cursor:grabbing}
+.crop-frame img{position:absolute;max-width:none;pointer-events:none;filter:grayscale(1) contrast(1.3);mix-blend-mode:screen}
+.crop-frame.dark img{mix-blend-mode:multiply}
+.crop-frame .crop-ink{position:absolute;inset:0;background:var(--ink);mix-blend-mode:multiply;pointer-events:none}
+.crop-frame.dark .crop-ink{display:none}
+.crop-frame .crop-segs{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(90deg,transparent calc(25% - 1px),rgba(0,0,0,.25) calc(25% - 1px) calc(25% + 1px),transparent calc(25% + 1px)),linear-gradient(90deg,transparent calc(50% - 1px),rgba(0,0,0,.25) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(90deg,transparent calc(75% - 1px),rgba(0,0,0,.25) calc(75% - 1px) calc(75% + 1px),transparent calc(75% + 1px)),linear-gradient(0deg,transparent calc(50% - 1px),rgba(0,0,0,.25) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
+.crop-ctrl{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.crop-ctrl input[type=range]{flex:1;min-width:110px;accent-color:#99354b}
+.zbtn{width:36px;height:36px;border-radius:50%;border:1.5px solid #CDB58F;background:#fff;font-size:20px;font-weight:800;line-height:1;display:grid;place-items:center}
+.small-ghost{min-height:36px!important;padding:5px 11px;font-size:13px;background:#fff}
+.link-btn{background:none;border:0;padding:0;font:inherit;font-weight:800;color:#99354b;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+/* Allergifilter som kan foldes sammen */
+details.alfilter{display:block}
+details.alfilter>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;font-weight:800;min-height:28px}
+details.alfilter>summary::-webkit-details-marker{display:none}
+details.alfilter>summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:2.5px solid #7A3A06;border-bottom:2.5px solid #7A3A06;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+details.alfilter[open]>summary::after{transform:rotate(-135deg) translateY(-2px)}
+details.alfilter .al-on{font-size:12px;font-weight:800;color:#fff;background:#99354b;border-radius:20px;padding:2px 9px}
+details.alfilter .al-hint{font-size:12.5px;font-weight:600;color:var(--muted)}
+.alfilter .al-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.alnote-out{margin:-4px 0 10px;font-size:12.5px;font-weight:700;color:#8e2940}
+/* Glassnavn uten orddeling midt i ord på mobil */
+@media(max-width:620px){.jar svg{width:34px;margin-right:6px}.jar .jl{overflow-wrap:normal;word-break:normal;hyphens:none;font-size:12.5px;padding:2px 2px}}
+/* Deling */
+.sharebox{margin-top:12px;padding:14px 16px 16px;border-radius:18px;background:linear-gradient(135deg,#FFF1E6,#F9E6F0);border:2px solid #E3B9C6}
+.sharebox h3{margin:0 0 2px;font-family:Georgia,serif;font-size:23px;letter-spacing:-.3px}
+.sharebox .sub{margin:0 0 12px;font-size:13.5px;color:var(--muted);font-weight:600}
+.sharebox .share{margin:0;display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:16px;align-items:start}
+.card-prev{width:100%;aspect-ratio:9/16;border-radius:12px;display:block;background:#EADCC6;box-shadow:0 8px 20px rgba(60,30,10,.25);object-fit:cover}
+.share-actions{display:grid;gap:8px;min-width:0}
+.share-main{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-size:17px!important}
+.share-main svg{flex-shrink:0}
+.socials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.soc{border:0;border-radius:12px;padding:8px;color:#fff;font-weight:800;font-size:13.5px;min-height:42px;display:flex;align-items:center;justify-content:center;gap:6px}
+.soc:hover{filter:brightness(1.08)}
+.soc.ig{background:linear-gradient(45deg,#F58529,#DD2A7B 55%,#8134AF)}
+.soc.fb{background:#1877F2}
+.soc.sc{background:#FFFC00;color:#111}
+.soc.tt{background:#111}
+.share-sec{display:flex;gap:6px;flex-wrap:wrap}
+.share-sec .btn-ghost{min-height:38px;padding:6px 12px;font-size:13.5px;background:#fff}
+.share-actions .share-msg{margin:0;font-size:13px;font-weight:700;color:#2E5228}
+.share-actions .share-msg:empty{display:none}
+@media(max-width:460px){.sharebox .share{grid-template-columns:minmax(0,1fr)}.card-prev{max-width:200px;margin:0 auto}}
+@media(min-width:881px){.sharebox .share{grid-template-columns:minmax(0,128px) minmax(0,1fr)}.jar .jl{min-height:0!important;padding:1px 3px}.jar .als{margin-top:4px}.jar .al{font-size:10.5px;padding:1px 6px}.panel .lead{margin-bottom:10px}.prof{margin-bottom:8px}.alfilter{margin-bottom:8px;padding:6px 10px}.crop-frame{width:min(100%,310px);margin:0 auto}.ink-field{display:flex;align-items:center;gap:14px}.ink-field .sw{width:36px;height:36px}.crop-frame+.crop-ctrl+.ink-note{margin-top:4px}.crop-ctrl{margin-top:6px}.modes{margin-bottom:8px!important}}
 </style>
 </head>
 <body>
@@ -430,7 +505,6 @@ footer{margin-top:16px}
         <circle cx="50" cy="52" r="5" fill="#5A3A14"/>
       </svg>
       <span class="gauge-read" id="gread">Vekt 0 g</span>
-      <span class="hint-drag plate">Dra for å snu</span>
       <svg class="nozzle" viewBox="0 0 84 74" aria-hidden="true">
         <defs><linearGradient id="nBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7E5622"/><stop offset=".45" stop-color="#F8E19A"/><stop offset="1" stop-color="#7E5622"/></linearGradient></defs>
         <rect x="30" y="0" width="24" height="22" fill="url(#nBrass)" stroke="#5A3A14" stroke-width="2"/>
@@ -478,7 +552,7 @@ footer{margin-top:16px}
       </div>
     </section>
 
-    <div class="live-summary" id="summary"></div><p class="preview-note">Forhåndsvisning · Dra platen eller bruk knappene for å snu.</p></div><section class="panel rivets" id="panel" aria-label="Tilpass sjokoladen"></section>
+    <div class="live-summary" id="summary"></div><p class="preview-note">Forhåndsvisning · Dra i platen for å se den fra alle kanter.</p></div><section class="panel rivets" id="panel" aria-label="Tilpass sjokoladen"></section>
   </div>
 
   <footer>Prototype laget av studenter ved UiA for Sjokoladefabrikken. Opplastede bilder blir værende i nettleseren din.</footer>
@@ -502,10 +576,15 @@ const CA={
   nut:{n:'Hasselnøtter',c:'#B07A3E',p:[0,0,1,3],al:['hasselnøtter']}
 };
 const SUGGEST={
-  dark:{p:['lic','caramel'],t:'Mørk sjokolade elsker kontraster. <b>Saltlakris og karamell</b> gir salt, søtt og bittert i samme bit.'},
-  milk:{p:['jelly','mallow'],t:'Melkesjokolade er myk og rund. <b>Gelébjørner og marshmallows</b> gir sprett og luft i teksturen.'},
-  white:{p:['berry','sour'],t:'Lys sjokolade er søt. <b>Bringebær og sure ormer</b> drar inn syrlighet som balanserer.'}
+  dark:{p:['lic','caramel'],why:'Mørk sjokolade elsker kontraster',alt:['lic','berry','sour','caramel','nut','banana','mallow','jelly']},
+  milk:{p:['jelly','mallow'],why:'Melkesjokolade er myk og rund',alt:['jelly','mallow','banana','berry','caramel','sour','lic','nut']},
+  white:{p:['berry','sour'],why:'Lys sjokolade er søt',alt:['berry','sour','lic','jelly','banana','nut','mallow','caramel']}
 };
+const SUGTXT={dark:'Mørk sjokolade elsker kontraster. <b>Saltlakris og karamell</b> gir salt, søtt og bittert i samme bit.',milk:'Melkesjokolade er myk og rund. <b>Gelébjørner og marshmallows</b> gir sprett og luft i teksturen.',white:'Lys sjokolade er søt. <b>Bringebær og sure ormer</b> drar inn syrlighet som balanserer.'};
+function sugFor(c){const S=SUGGEST[c];if(S.p.every(k=>!excluded(k)))return{p:S.p,t:SUGTXT[c]};
+  const p=S.alt.filter(k=>!excluded(k)).slice(0,2);if(!p.length)return{p:[],t:'Filteret ditt utelukker alt godteriet i automaten. Prøv å skru av et filter.'};
+  const names=p.map(k=>CA[k].n.toLowerCase()).join(' og ');
+  return{p,t:`${S.why}. Med allergifilteret ditt foreslår jeg <b>${names.charAt(0).toUpperCase()+names.slice(1)}</b>, så du slipper det du vil unngå.`}}
 const SURPRISE=[['lic','berry'],['nut','sour'],['caramel','berry','nut'],['lic','mallow'],['banana','lic'],['sour','caramel']];
 const STATIONS=['Tankene','Godteriautomaten','Trykkeriet','Pakkeriet'];
 const SHORT=['Tanker','Godteri','Trykk','Pakking'];
@@ -513,7 +592,14 @@ const FONTS={play:{n:'Leken',f:"'Chewy',system-ui,sans-serif",s:1.05},script:{n:
 const INKS={gold:'#FFD45C',cream:'#FFF4E2',pink:'#FF7AB4',mint:'#4FE3C1',choc:'#3E2415'};
 const INKNAMES={gold:'Gull',cream:'Krem',pink:'Rosa',mint:'Mint',choc:'Sjokolade'};
 
-const fresh=()=>({step:0,reached:0,choc:null,fill:[],mode:'text',text:'',font:'play',ink:'gold',img:null,err:'',ordered:false,order:null,share:false,rotY:0,justAdded:null});
+const fresh=()=>({step:0,reached:0,choc:null,fill:[],mode:'text',text:'',font:'play',ink:'gold',img:null,err:'',ordered:false,order:null,rotY:0,justAdded:null,avoid:[],alNote:'',card:null,src:null,crop:null,alOpen:false});
+const ALLERGENS=['melk','egg','hasselnøtter'];
+const cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
+function splitAl(list){const c=[],t=[];list.forEach(a=>{if(a.includes('(spor)')){const b=a.replace(' (spor)','');if(!t.includes(b))t.push(b)}else if(!c.includes(a))c.push(a)});return{c,t:t.filter(a=>!c.includes(a))}}
+function alBadges(list,noneText='Ingen allergener'){const{c,t}=splitAl(list);if(!c.length&&!t.length)return `<span class="als"><span class="al none">${noneText}</span></span>`;
+  return `<span class="als">`+c.map(a=>`<span class="al">${cap(a)}</span>`).join('')+t.map(a=>`<span class="al tr">Spor av ${a}</span>`).join('')+`</span>`}
+function plateAl(){const l=[];if(s.choc)l.push(...CH[s.choc].al);s.fill.forEach(k=>l.push(...CA[k].al));return l}
+const excluded=k=>CA[k].al.some(a=>s.avoid.includes(a.replace(' (spor)','')));
 let s=fresh();
 const $=id=>document.getElementById(id);
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -582,6 +668,36 @@ addEventListener('resize',()=>{if(!$('factory').hidden)placePipe()});
 
 function setRot(y,animate=true){s.rotY=y;const b=$('bar');b.classList.toggle('dragging',!animate);b.style.transform=`rotateX(-8deg) rotateY(${y}deg)`;
   const n=((y%360)+360)%360,back=n>90&&n<270;$('showFront').setAttribute('aria-pressed',!back);$('showBack').setAttribute('aria-pressed',back)}
+const isDarkInk=()=>s.ink==='choc';
+/* Gjør et opplastet bilde om til et sjokoladetrykk: tilpasset platens format (330:210), i gråtoner, som maske for trykkfargen. */
+/* Utsnitt: z = zoom relativt til «hele bildet synlig», x/y = forskyvning av bildets midtpunkt i andeler av platen. */
+function fitScale(w,h,W=330,H=210){return Math.min(W/w,H/h)}
+function coverZ(w,h){return Math.max(330/w,210/h)/fitScale(w,h)}
+function defaultCrop(w,h){const cz=coverZ(w,h);return{z:1/(cz*cz)>=.7?cz:1,x:0,y:0}} // beskjær bare når minst 70 % av bildet blir med
+function maxZ(w,h){return Math.max(4,coverZ(w,h)*3)}
+function clampCrop(c,w,h){const z=Math.min(maxZ(w,h),Math.max(1,c.z)),sc=fitScale(w,h)*z,dw=w*sc/330,dh=h*sc/210,mx=Math.abs(dw-1)/2,my=Math.abs(dh-1)/2;
+  return{z,x:Math.min(mx,Math.max(-mx,c.x)),y:Math.min(my,Math.max(-my,c.y))}}
+function cropRect(c,w,h,W,H){const sc=fitScale(w,h,W,H)*c.z,dw=w*sc,dh=h*sc;return[W/2+c.x*W-dw/2,H/2+c.y*H-dh/2,dw,dh]}
+function makePrint(im,crop,W=660,H=420){
+  const w=im.width,h=im.height,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
+  const r=cropRect(crop,w,h,W,H);
+  const covers=r[0]<=.5&&r[1]<=.5&&r[0]+r[2]>=W-.5&&r[1]+r[3]>=H-.5;
+  if(!covers){ // bildet dekker ikke hele platen: mykt utfylt bakgrunn
+    const sm=document.createElement('canvas');sm.width=22;sm.height=14;const sx=sm.getContext('2d');const sc=Math.max(22/w,14/h);sx.drawImage(im,(22-w*sc)/2,(14-h*sc)/2,w*sc,h*sc);
+    cx.imageSmoothingEnabled=true;cx.imageSmoothingQuality='high';cx.drawImage(sm,0,0,W,H)}
+  cx.drawImage(im,r[0],r[1],r[2],r[3]);
+  const box=covers?[0,0,W,H]:[Math.max(0,r[0]),Math.max(0,r[1]),Math.min(W,r[0]+r[2])-Math.max(0,r[0]),Math.min(H,r[1]+r[3])-Math.max(0,r[1])];
+  const d=cx.getImageData(0,0,W,H),px=d.data,L=new Float32Array(W*H),hist=new Uint32Array(256);let n=0;
+  for(let i=0,j=0;i<px.length;i+=4,j++){const l=(.299*px[i]+.587*px[i+1]+.114*px[i+2])*(px[i+3]/255)+(255-px[i+3]);L[j]=l;const x=j%W,y=(j/W)|0;if(x>=box[0]&&x<box[0]+box[2]&&y>=box[1]&&y<box[1]+box[3]){hist[Math.min(255,l|0)]++;n++}}
+  let lo=0,hi=255,acc=0;for(let v=0;v<256;v++){acc+=hist[v];if(acc<=n*.02)lo=v;if(acc<n*.98)hi=v+1}if(hi-lo<20){lo=Math.max(0,lo-10);hi=Math.min(255,hi+10)}
+  const light=new ImageData(W,H),dark=new ImageData(W,H),f=14*W/660;
+  for(let j=0;j<W*H;j++){const x=j%W,y=(j/W)|0;
+    const dx=Math.max(box[0]-x,x-(box[0]+box[2]),0),dy=Math.max(box[1]-y,y-(box[1]+box[3]),0),out=Math.min(1,Math.hypot(dx,dy)/f),wgt=1-out*.75;
+    let v=Math.min(1,Math.max(0,(L[j]-lo)/(hi-lo)));v=Math.pow(v,.9);const k=j*4;
+    light.data[k]=light.data[k+1]=light.data[k+2]=dark.data[k]=dark.data[k+1]=dark.data[k+2]=255;
+    light.data[k+3]=Math.round(v*.94*wgt*255);dark.data[k+3]=Math.round((1-v)*.94*wgt*255)}
+  const toUrl=id=>{const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').putImageData(id,0,0);return c.toDataURL('image/png')};
+  return{light:toUrl(light),dark:toUrl(dark)}}
 function paintBar(){
   const ch=s.choc?CH[s.choc]:{c:'#4E6F6C',e:'#35504E',ink:'#E6F2EF'};
   $('bar').style.setProperty('--bar',ch.c);$('bar').style.setProperty('--bar-edge',ch.e);
@@ -593,7 +709,8 @@ function paintBar(){
   $('ph-front').style.color=ch.ink;
   $('ph-front').textContent=!s.choc?'Formen er tom. Velg sjokolade i tankene.':(s.fill.length?'':'Velg fyll i godteriautomaten');
   const pr=$('print');
-  if(s.mode==='image'&&s.img){pr.innerHTML=`<img src="${s.img}" alt="Bildet ditt trykket på platen">`}
+  pr.classList.toggle('full',!!(s.mode==='image'&&s.img));
+  if(s.mode==='image'&&s.img){const m=isDarkInk()?s.img.dark:s.img.light;pr.innerHTML=`<div class="print-img" role="img" aria-label="Bildet ditt som sjokoladetrykk"><i style="background:${INKS[s.ink]};-webkit-mask-image:url(${m});mask-image:url(${m})"></i></div>`}
   else if(s.mode==='text'&&s.text.trim()){const F=FONTS[s.font],n=s.text.trim(),base=n.length>16?24:n.length>10?32:n.length>5?40:48;
     pr.innerHTML=`<div class="print-text" style="font-family:${F.f};font-size:${Math.round(base*F.s)}px;color:${INKS[s.ink]}">${esc(n)}</div>`}
   else pr.innerHTML=`<div style="color:${ch.ink};font-weight:800;opacity:.8;font-size:15px;border:2px dashed currentColor;border-radius:8px;padding:18px 14px">${s.mode==='image'?'Bildet ditt kommer her':'Teksten din kommer her'}</div>`;
@@ -614,7 +731,7 @@ function stampPrint(){const p=$('print').firstElementChild;if(p&&!reduce){p.clas
 function profile(){const base=s.choc?CH[s.choc].p:[0,0,0,0];const t=[...base];s.fill.forEach(k=>CA[k].p.forEach((v,i)=>t[i]+=v));const max=[12,9,9,10];return t.map((v,i)=>Math.min(100,Math.round(v/max[i]*100)))}
 function verdict(){
   if(!s.choc)return'Velkommen! Start med å velge sjokolade, så hjelper jeg deg med fyllet.';
-  if(!s.fill.length)return SUGGEST[s.choc].t;
+  if(!s.fill.length)return sugFor(s.choc).t;
   const [sw,so,sa,te]=profile();const has=k=>s.fill.includes(k);
   if(has('lic')&&has('berry'))return'Saltlakris og bringebær! Dristig. Salt og syrlig sammen er uventet, men fungerer overraskende godt.';
   if(sa>=25&&sw>=45)return'Fin <b>salt-søtt-balanse</b>. Den kombinasjonen gjør at man vil ha én bit til.';
@@ -626,6 +743,7 @@ function verdict(){
 }
 let typeTimer=null;
 function say(html){const el=$('say');if(!el)return;clearInterval(typeTimer);if(reduce){el.innerHTML=html;return}
+  const box=el.parentElement;box.style.minHeight='';el.innerHTML=html;box.style.minHeight=box.offsetHeight+'px';
   const tmp=document.createElement('div');tmp.innerHTML=html;const plain=tmp.textContent;let i=0;el.textContent='';
   typeTimer=setInterval(()=>{i+=2;el.textContent=plain.slice(0,i);if(i>=plain.length){clearInterval(typeTimer);el.innerHTML=html}},18)}
 function profBars(){const v=profile(),L=['Søtt','Surt','Salt','Tekstur'],C=['#D8478D','#7BB33F','#3C88C4','#D9A030'];
@@ -634,12 +752,40 @@ function professorSVG(){return `<svg viewBox="0 0 80 96" aria-hidden="true"><pat
 
 function validThrough(){if(!s.choc)return 0;if(!s.fill.length)return 1;if(s.mode==='text'?!s.text.trim():!s.img)return 2;return 3}
 function updateSummary(){
-  $('summary').innerHTML=`<div class="summary-heading"><strong>Din kreasjon</strong><span>189 kr · eksempelpris</span></div><p>${s.choc?esc(CH[s.choc].full):'Begynn med sjokoladen du liker best.'}${s.choc?' · ca. '+(s.fill.length?180:70)+' g':''}</p><div class="chips">${s.fill.map(k=>`<span class="chip">${esc(CA[k].n)}</span>`).join('')}${s.mode==='text'&&s.text.trim()?`<span class="chip">«${esc(s.text.trim())}»</span>`:s.mode==='image'&&s.img?'<span class="chip">Eget bilde</span>':''}</div>`;
+  $('summary').innerHTML=`<div class="summary-heading"><strong>Din kreasjon</strong><span>189 kr · eksempelpris</span></div><p>${s.choc?esc(CH[s.choc].full):'Begynn med sjokoladen du liker best.'}${s.choc?' · ca. '+(s.fill.length?180:70)+' g':''}</p><div class="chips">${s.fill.map(k=>`<span class="chip">${esc(CA[k].n)}</span>`).join('')}${s.mode==='text'&&s.text.trim()?`<span class="chip">«${esc(s.text.trim())}»</span>`:s.mode==='image'&&s.img?'<span class="chip">Bildetrykk</span>':''}</div>`+(s.choc?`<div class="sum-al">Allergener: ${alBadges(plateAl())}</div>`:'');
 }
 function downloadRecipe(){
-  const recipe=['SJOKOLADEFABRIKKEN — MIN OPPSKRIFT','',CH[s.choc].full,'Fyll: '+s.fill.map(k=>CA[k].n).join(', '),'Trykk: '+(s.mode==='text'?s.text.trim()+' ('+FONTS[s.font].n+', '+INKNAMES[s.ink]+')':'Eget bilde'),'Ca. 70 g sjokolade + 110 g fyll','','Prototype for brukertesting. Ingen bestilling er sendt.','Ingrediens- og allergenopplysninger er kun eksempeldata.'].join('\n');
+  const recipe=['SJOKOLADEFABRIKKEN — MIN OPPSKRIFT','',CH[s.choc].full,'Fyll: '+s.fill.map(k=>CA[k].n).join(', '),'Trykk: '+(s.mode==='text'?s.text.trim()+' ('+FONTS[s.font].n+', '+INKNAMES[s.ink]+')':'Bildetrykk ('+INKNAMES[s.ink]+')'),'Allergener: '+(()=>{const{c,t}=splitAl(plateAl());return [c.join(', ')||'ingen',t.length?'kan inneholde spor av '+t.join(', '):''].filter(Boolean).join('; ')})(),'Ca. 70 g sjokolade + 110 g fyll','','Prototype for brukertesting. Ingen bestilling er sendt.','Ingrediens- og allergenopplysninger er kun eksempeldata.'].join('\n');
   const url=URL.createObjectURL(new Blob([recipe],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Min-sjokoladeoppskrift.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+function cropStyle(){const r=cropRect(s.crop,s.src.w,s.src.h,330,210);return `left:${r[0]/3.3}%;top:${r[1]/2.1}%;width:${r[2]/3.3}%;height:${r[3]/2.1}%`}
+function cropperHTML(){const ch=CH[s.choc],mz=maxZ(s.src.w,s.src.h);
+  return `<div class="field"><span>Plasser bildet på platen</span><div class="crop-frame ${isDarkInk()?'dark':''}" id="cropFrame" style="background:${ch.c};--ink:${INKS[s.ink]}" role="application" aria-label="Bildeutsnitt. Dra for å flytte, bruk piltastene for å flytte og pluss eller minus for å zoome." tabindex="0">
+    <img src="${s.src.url}" alt="" draggable="false" id="cropImg" style="${cropStyle()}"><span class="crop-ink"></span><span class="crop-segs"></span></div>
+    <div class="crop-ctrl"><button class="zbtn" type="button" id="zOut" aria-label="Zoom ut">−</button><input type="range" id="zoom" min="1" max="${mz.toFixed(2)}" step="0.01" value="${s.crop.z.toFixed(2)}" aria-label="Zoom"><button class="zbtn" type="button" id="zIn" aria-label="Zoom inn">+</button><button class="btn-ghost small-ghost" type="button" id="cropFit">Fyll platen</button><button class="btn-ghost small-ghost" type="button" id="cropAll">Vis hele</button></div>
+    <p class="ink-note">Dra i bildet for å flytte det, zoom med glideren eller to fingre. Trykkes i én spiselig farge. <label class="link-btn" for="up" tabindex="0" id="swapImg">Bytt bilde</label> · <button class="link-btn" type="button" id="rm">Fjern</button></p></div>`}
+let cropTimer=null;
+function applyCrop(final){const i=$('cropImg');if(i)i.style.cssText=cropStyle();const z=$('zoom');if(z)z.value=s.crop.z.toFixed(2);
+  clearTimeout(cropTimer);cropTimer=setTimeout(()=>{if(!s.src)return;s.img=makePrint(s.src.cv,s.crop,final?660:330,final?420:210);s.card=null;paintBar();if(Math.abs(((s.rotY%360)+360)%360-180)>40)setRot(180)},final?0:40)}
+function setCrop(c,final){s.crop=clampCrop(c,s.src.w,s.src.h);applyCrop(final)}
+function bindCropper(){const fr=$('cropFrame');if(!fr)return;const pts=new Map();let startC=null,startD=0,startMid=null;
+  const rect=()=>fr.getBoundingClientRect();
+  const mid=()=>{const v=[...pts.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2,d:Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)}};
+  fr.addEventListener('pointerdown',e=>{fr.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});startC={...s.crop};
+    if(pts.size===2){const m=mid();startD=m.d;startMid=m}else startMid={x:e.clientX,y:e.clientY,d:0};fr.classList.add('grabbing')});
+  fr.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});const R=rect();
+    if(pts.size>=2){const m=mid();setCrop({z:startC.z*m.d/Math.max(1,startD),x:startC.x+(m.x-startMid.x)/R.width,y:startC.y+(m.y-startMid.y)/R.height},false)}
+    else setCrop({z:startC.z,x:startC.x+(e.clientX-startMid.x)/R.width,y:startC.y+(e.clientY-startMid.y)/R.height},false)});
+  const end=e=>{if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);startC={...s.crop};const v=[...pts.values()];if(v.length===1)startMid={x:v[0].x,y:v[0].y,d:0};if(!pts.size){fr.classList.remove('grabbing');applyCrop(true)}};
+  fr.addEventListener('pointerup',end);fr.addEventListener('pointercancel',end);
+  fr.addEventListener('wheel',e=>{e.preventDefault();setCrop({...s.crop,z:s.crop.z*Math.exp(-e.deltaY*.0015)},false);clearTimeout(fr._w);fr._w=setTimeout(()=>applyCrop(true),200)},{passive:false});
+  fr.addEventListener('keydown',e=>{const st=.03,m={ArrowLeft:[-st,0],ArrowRight:[st,0],ArrowUp:[0,-st],ArrowDown:[0,st]}[e.key];
+    if(m){e.preventDefault();setCrop({...s.crop,x:s.crop.x+m[0],y:s.crop.y+m[1]},true)}else if(e.key==='+'||e.key==='='){e.preventDefault();setCrop({...s.crop,z:s.crop.z*1.1},true)}else if(e.key==='-'){e.preventDefault();setCrop({...s.crop,z:s.crop.z/1.1},true)}});
+  const z=$('zoom');z.oninput=()=>setCrop({...s.crop,z:+z.value},false);z.onchange=()=>applyCrop(true);
+  $('zIn').onclick=()=>setCrop({...s.crop,z:s.crop.z*1.15},true);$('zOut').onclick=()=>setCrop({...s.crop,z:s.crop.z/1.15},true);
+  $('cropFit').onclick=()=>{setCrop({z:coverZ(s.src.w,s.src.h),x:0,y:0},true);clank()};$('cropAll').onclick=()=>{setCrop({z:1,x:0,y:0},true);clank()};
+  const sw=$('swapImg');if(sw)sw.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('up').click()}}}
+function inkField(){return `<div class="field ink-field"><span>Farge på trykket</span><div class="swatches">`+Object.entries(INKS).map(([k,v])=>`<button class="sw" type="button" data-ink="${k}" aria-pressed="${s.ink===k}" style="background:${v}" aria-label="${INKNAMES[k]}"></button>`).join('')+`</div></div>`}
 function title(i,t){return `<div class="title-plate"><span class="medal">${i}</span><h2 class="plate">${t}</h2></div>`}
 function nav(next){return `<p class="err" role="alert" id="err">${s.err}</p><div class="navrow">${s.step?'<button class="btn-ghost" type="button" id="prev">Tilbake</button>':'<span></span>'}${next?`<button class="btn-enamel" type="button" id="next">${next}</button>`:''}</div>`}
 function tankSVG(k){const c=CH[k];return `<svg viewBox="0 0 110 140" aria-hidden="true">
@@ -660,45 +806,103 @@ function render(){
   renderPipeline();let h='';
   if(s.step===0){
     h=title(1,'Velg sjokolade')+`<p class="lead">Trykk på en tank, så tapper vi ca. 70 g sjokolade i formen.</p><div class="tanks">`+
-      Object.entries(CH).map(([k,v])=>`<button class="tank" type="button" data-c="${k}" aria-pressed="${s.choc===k}">${tankSVG(k)}<span class="tag plate">${v.n}</span><small>${v.d}</small></button>`).join('')+`</div>`+nav('Til godteriautomaten');
+      Object.entries(CH).map(([k,v])=>`<button class="tank" type="button" data-c="${k}" aria-pressed="${s.choc===k}">${tankSVG(k)}<span class="tag plate">${v.n}</span><small>${v.d}</small>${alBadges(v.al)}</button>`).join('')+`</div>`+nav('Til godteriautomaten');
   }
   if(s.step===1){
     h=`<div class="headrow">${title(2,'Velg fyll')}<div class="slots" aria-label="Valgt fyll">`+[0,1,2].map(i=>`<span class="slot ${s.fill[i]?'full':''}">${s.fill[i]?candyIcon(s.fill[i],26):''}</span>`).join('')+`<span>${s.fill.length} av 3</span></div></div>
     <p class="lead">Velg én til tre typer. Trykk igjen for å fjerne et valg. Hver plate får ca. 110 g godteri.</p>
     <div class="prof">${professorSVG()}<div><div class="speech"><span class="who">Smaks-professoren</span><span id="say"></span></div>
       <div class="prof-btns"><button class="btn-brass small" type="button" id="useSug">Bruk forslaget</button><button class="btn-brass small" type="button" id="surprise">Overrask meg</button></div></div></div>
-    <div class="jars">`+Object.entries(CA).map(([k,v])=>`<button class="jar" type="button" data-f="${k}" aria-pressed="${s.fill.includes(k)}">${jarSVG(k)}<span class="jl">${v.n}</span></button>`).join('')+`</div>`+profBars()+nav('Til trykkeriet');
+    <details class="alfilter" id="alDetails" ${s.alOpen||s.avoid.length?'open':''}><summary>&#9888; Allergier? Filtrer godteriet`+(s.avoid.length?s.avoid.map(a=>`<span class="al-on">Uten ${a}</span>`).join(''):`<span class="al-hint">Skjul det du ikke tåler</span>`)+`</summary>
+      <div class="al-btns" role="group" aria-label="Skjul godteri som inneholder">`+ALLERGENS.map(a=>`<button class="avoid" type="button" data-avoid="${a}" aria-pressed="${s.avoid.includes(a)}">Uten ${a}</button>`).join('')+`</div>`+
+      (()=>{const hid=Object.keys(CA).filter(excluded).length;let n='';
+        if(s.avoid.length)n+=hid+' av '+Object.keys(CA).length+' godterityper er skjult. Filteret skjuler også godteri som kan inneholde spor.';
+        else n+='Velg allergener du vil unngå, så skjuler vi godteri som inneholder dem.';
+        return `<p class="alnote">${n}</p>`})()+`</details>`+
+      (()=>{const chocHit=s.choc&&CH[s.choc].al.some(a=>s.avoid.includes(a.replace(' (spor)','')));let n='';
+        if(chocHit){const sp=splitAl(CH[s.choc].al);n+=`Merk: ${esc(CH[s.choc].full.toLowerCase())} inneholder ${esc(sp.c.concat(sp.t.map(x=>'spor av '+x)).join(', '))}. Bytt sjokolade i stasjon 1 om nødvendig. `}
+        if(s.alNote)n+=s.alNote;return `<p class="alnote-out" role="status">${n}</p>`})()+`
+    <div class="jars">`+Object.entries(CA).filter(([k])=>!excluded(k)).map(([k,v])=>`<button class="jar" type="button" data-f="${k}" aria-pressed="${s.fill.includes(k)}">${jarSVG(k)}<span class="jtxt"><span class="jl">${v.n}</span>${alBadges(v.al)}</span></button>`).join('')+`</div>`+profBars()+nav('Til trykkeriet');
   }
   if(s.step===2){
     h=title(3,'Trykk på baksiden')+`<p class="lead">Velg tekst eller bilde. Trykket dekker hele baksiden av platen.</p>
-    <div class="modes"><button class="mode" type="button" data-m="text" aria-pressed="${s.mode==='text'}">Tekst<small>Et navn eller en hilsen</small></button><button class="mode" type="button" data-m="image" aria-pressed="${s.mode==='image'}">Bilde<small>Last opp ditt eget</small></button></div>`+
+    <div class="modes"><button class="mode" type="button" data-m="text" aria-pressed="${s.mode==='text'}">Tekst<small>Et navn eller en hilsen</small></button><button class="mode" type="button" data-m="image" aria-pressed="${s.mode==='image'}">Bilde<small>Blir et sjokoladetrykk</small></button></div>`+
     (s.mode==='text'?`
       <label class="field"><span>Tekst på platen</span><input class="txt" id="txt" type="text" maxlength="20" placeholder="Til min favoritt" value="${esc(s.text)}" autocomplete="off"><span class="count" id="cnt">${s.text.length}/20</span></label>
       <div class="field"><span>Skrift</span><div class="fonts">`+Object.entries(FONTS).map(([k,v])=>`<button class="fontb" type="button" data-font="${k}" aria-pressed="${s.font===k}" style="font-family:${v.f}">${v.n}</button>`).join('')+`</div></div>
-      <div class="field"><span>Farge på trykket</span><div class="swatches">`+Object.entries(INKS).map(([k,v])=>`<button class="sw" type="button" data-ink="${k}" aria-pressed="${s.ink===k}" style="background:${v}" aria-label="${INKNAMES[k]}"></button>`).join('')+`</div></div>`
-    :`<label class="dropzone" id="dropzone" for="up" tabindex="0"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>${s.img?'Bytt bilde':'Slipp et bilde her, eller trykk for å velge'}<small style="font-weight:600">JPG eller PNG · maks 8 MB · beskjæres til platen</small></label><input type="file" id="up" accept="image/jpeg,image/png" hidden>`+(s.img?`<p style="margin:12px 0 0"><button class="btn-brass small" type="button" id="rm">Fjern bilde</button></p>`:''))+nav('Til pakkeriet');
+      `+inkField()
+    :(s.img&&s.src?cropperHTML()+`<input type="file" id="up" accept="image/jpeg,image/png" hidden>`+inkField()
+      :`<label class="dropzone" id="dropzone" for="up" tabindex="0"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>Slipp et bilde her, eller trykk for å velge<small style="font-weight:600">JPG eller PNG · maks 8 MB · du velger utsnittet selv</small></label><input type="file" id="up" accept="image/jpeg,image/png" hidden>`))+nav('Til pakkeriet');
   }
   if(s.step===3){
-    const al=new Set();CH[s.choc].al.forEach(a=>al.add(a));s.fill.forEach(k=>CA[k].al.forEach(a=>al.add(a)));
-    const list=[...al],contains=list.filter(a=>!a.includes('spor')),traces=list.filter(a=>a.includes('spor')).map(a=>a.replace(' (spor)','')).filter(a=>!contains.includes(a));
-    const tr=s.mode==='text'?`«${esc(s.text.trim())}» i ${FONTS[s.font].n.toLowerCase()} skrift`:'Eget bilde';
+    const tr=s.mode==='text'?`«${esc(s.text.trim())}» i ${FONTS[s.font].n.toLowerCase()} skrift`:`Bildetrykk i ${INKNAMES[s.ink].toLowerCase()}`;
     h=title(4,'Klar for produksjon')+`<p class="lead">Sjekk platen din før den går på samlebåndet.</p>
     <div class="ticket rivets"><h3>Fabrikkbillett</h3>
       <div class="trow"><span>Sjokolade</span><span>${CH[s.choc].full}</span></div>
       <div class="trow"><span>Fyll</span><span>${s.fill.map(k=>CA[k].n).join(', ')}</span></div>
       <div class="trow"><span>Trykk</span><span>${tr}</span></div>
       <div class="price"><span>189 kr</span><small>Eksempelpris · frakt kommer i tillegg</small></div></div>
-    <div class="decl"><b>Varedeklarasjon (eksempel).</b> ${contains.length?'Inneholder: '+contains.join(', ')+'.':''} ${traces.length?'Kan inneholde spor av '+traces.join(', ')+'.':''} Kun eksempeldata for brukertesting, ikke en fullstendig ingrediens- eller allergenliste.</div>`+
+    <div class="decl-al decl" role="note"><h4>Allergener i platen din</h4>${alBadges(plateAl(),'Ingen allergener i valgene dine')}<p>Eksempeldata for brukertesting, ikke en fullstendig ingrediens- eller allergenliste.</p></div>`+
     (s.ordered?`<div class="done-msg"><big>Platen din er ferdig!</big>Demoordre ${s.order}. Dette er en prototype, så ingen ordre er sendt på ordentlig.</div>
-      <div class="final" style="margin-top:12px"><button class="btn-enamel" type="button" id="shareBtn">Se delingskort</button><button class="btn-ghost" type="button" id="downloadRecipe">Lagre oppskrift</button><button class="btn-ghost" type="button" id="again">Lag en ny plate</button></div>`+(s.share?shareCard():'')
+`+shareCard()+`<div class="final" style="margin-top:12px"><button class="btn-ghost" type="button" id="downloadRecipe">Lagre oppskrift</button><button class="btn-ghost" type="button" id="again">Lag en ny plate</button></div>`
     :`<div class="final"><button class="btn-enamel" type="button" id="order">Prøv pakking av platen</button></div>`+nav(''));
   }
-  $('panel').classList.toggle('is-done',!!s.ordered);$('panel').classList.toggle('is-sharing',!!(s.ordered&&s.share));$('panel').innerHTML=`<div class="step-note">Stasjon ${s.step+1} av 4</div>`+h;bind();paintBar();updateSummary();
+  $('panel').classList.toggle('is-done',!!s.ordered);$('panel').classList.toggle('is-sharing',!!s.ordered);$('panel').innerHTML=`<div class="step-note">Stasjon ${s.step+1} av 4</div>`+h;bind();paintBar();updateSummary();
   if(s.step===1)say(verdict());
+  if(s.ordered)prepareCard();
 }
-function shareCard(){const ch=CH[s.choc];let g='';SPOTS.forEach((p,i)=>{g+=candy(s.fill[i%s.fill.length],p[0],p[1],p[2],p[3])});
-  const name=s.mode==='text'?esc(s.text.trim()):'Min egen sjokolade';
-  return `<div class="share"><div class="story"><span class="s-top">Sjokoladefabrikken</span><div class="s-bar" style="background:${ch.c}"><svg viewBox="0 0 330 210" style="width:100%;height:100%">${g}</svg></div><span class="s-name">${name}</span></div><p>Slik kan delingen se ut på Instagram og Facebook. I den ferdige løsningen lages bildet automatisk og kan deles med ett trykk.</p></div>`}
+const SHARE_ICON='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+function caption(){return `Jeg har designet min egen sjokoladeplate i Sjokoladefabrikken! ${CH[s.choc].full} med ${s.fill.map(k=>CA[k].n.toLowerCase()).join(', ')}. #MinSjokoladefabrikk`}
+function shareCard(){
+  return `<section class="sharebox" aria-labelledby="shareTitle"><h3 id="shareTitle">Del platen din</h3><p class="sub">Vi har laget et ferdig bilde i story-format. Del det rett fra telefonen, eller last det ned.</p>
+  <div class="share"><img class="card-prev" id="cardImg" alt="Delingsbilde av sjokoladeplaten din" ${s.card?`src="${s.card.url}"`:''}>
+  <div class="share-actions"><button class="btn-enamel share-main" type="button" id="shareNative">${SHARE_ICON}Del bildet</button>
+    <div class="socials" role="group" aria-label="Del på sosiale medier"><button class="soc ig" type="button" data-soc="Instagram">Instagram</button><button class="soc fb" type="button" data-soc="Facebook">Facebook</button><button class="soc sc" type="button" data-soc="Snapchat">Snapchat</button><button class="soc tt" type="button" data-soc="TikTok">TikTok</button></div>
+    <div class="share-sec"><button class="btn-ghost" type="button" id="dlCard">Last ned bilde</button><button class="btn-ghost" type="button" id="copyCap">Kopier tekst</button></div>
+    <p class="share-msg" id="shareMsg" role="status"></p></div></div></section>`}
+function loadImg(src){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=src})}
+function rrect(cx,x,y,w,h,r){cx.beginPath();if(cx.roundRect)cx.roundRect(x,y,w,h,r);else cx.rect(x,y,w,h)}
+function wrapText(cx,t,x,y,maxW,lh){const words=t.split(' ');let line='',lines=[];words.forEach(w=>{const tst=line?line+' '+w:w;if(cx.measureText(tst).width>maxW&&line){lines.push(line);line=w}else line=tst});lines.push(line);lines.forEach((l,i)=>cx.fillText(l,x,y+i*lh));return lines.length}
+async function drawCard(){
+  try{await Promise.all(['64px Rye','800 40px Nunito','48px "Alfa Slab One"','60px Chewy','60px Pacifico','600 60px Fraunces'].map(f=>document.fonts.load(f)))}catch(e){}
+  const W=1080,H=1920,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d'),ch=CH[s.choc];
+  const bg=cx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#9ECBE0');bg.addColorStop(1,'#F6E2C0');cx.fillStyle=bg;cx.fillRect(0,0,W,H);
+  cx.textAlign='center';cx.fillStyle='#4A2A10';cx.font='72px Rye, Georgia, serif';cx.fillText('Sjokoladefabrikken',W/2,170);
+  cx.font='800 44px Nunito, sans-serif';cx.fillStyle='#5A3A14';cx.fillText('Jeg har laget min egen sjokolade!',W/2,250);
+  const BW=820,BH=Math.round(BW*210/330);
+  // forside med fyll
+  const segs='<path d="M82.5 0V210M165 0V210M247.5 0V210M0 105H330" stroke="rgba(0,0,0,.22)" stroke-width="4"/>';
+  let g='';SPOTS.forEach((p,i)=>{g+=candy(s.fill[i%s.fill.length],p[0],p[1],p[2],p[3])});
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 210" width="${BW}" height="${BH}"><rect width="330" height="210" fill="${ch.c}"/>${segs}${g}</svg>`;
+  const front=await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));
+  // bakside med trykk
+  const back=document.createElement('canvas');back.width=BW;back.height=BH;const bx=back.getContext('2d');bx.fillStyle=ch.c;bx.fillRect(0,0,BW,BH);
+  if(s.mode==='image'&&s.img){const m=await loadImg(isDarkInk()?s.img.dark:s.img.light);const t=document.createElement('canvas');t.width=BW;t.height=BH;const tx=t.getContext('2d');tx.drawImage(m,0,0,BW,BH);tx.globalCompositeOperation='source-in';tx.fillStyle=INKS[s.ink];tx.fillRect(0,0,BW,BH);bx.drawImage(t,0,0)}
+  else{const F=FONTS[s.font],n=s.text.trim();let size=150*F.s;bx.font=`${size}px ${F.f}`;while(bx.measureText(n).width>BW*.84&&size>30){size-=4;bx.font=`${size}px ${F.f}`}
+    bx.fillStyle=INKS[s.ink];bx.textAlign='center';bx.textBaseline='middle';bx.fillText(n,BW/2,BH/2)}
+  bx.strokeStyle='rgba(0,0,0,.12)';bx.lineWidth=8;bx.beginPath();[.25,.5,.75].forEach(f=>{bx.moveTo(BW*f,0);bx.lineTo(BW*f,BH)});bx.moveTo(0,BH/2);bx.lineTo(BW,BH/2);bx.stroke();
+  const place=(img,cy,rot)=>{cx.save();cx.translate(W/2,cy);cx.rotate(rot*Math.PI/180);cx.shadowColor='rgba(60,30,10,.35)';cx.shadowBlur=40;cx.shadowOffsetY=18;rrect(cx,-BW/2,-BH/2,BW,BH,12);cx.fillStyle=ch.e;cx.fill();cx.shadowColor='transparent';
+    cx.save();rrect(cx,-BW/2,-BH/2,BW,BH,12);cx.clip();cx.drawImage(img,-BW/2,-BH/2,BW,BH);cx.restore();cx.lineWidth=10;cx.strokeStyle='rgba(0,0,0,.18)';rrect(cx,-BW/2+5,-BH/2+5,BW-10,BH-10,10);cx.stroke();cx.restore()};
+  place(front,620,-6);place(back,1250,5);
+  cx.fillStyle='#4A2A10';cx.font='800 40px Nunito, sans-serif';
+  const lines=wrapText(cx,`${ch.full} med ${s.fill.map(k=>CA[k].n.toLowerCase()).join(', ')}`,W/2,1640,920,54);
+  cx.fillStyle='#99354B';cx.font='52px "Alfa Slab One", Georgia, serif';cx.fillText('#MinSjokoladefabrikk',W/2,1640+lines*54+70);
+  return await new Promise(ok=>cv.toBlob(ok,'image/png'))}
+let cardJob=null;
+function prepareCard(){const done=c=>{const i=$('cardImg');if(i&&c)i.src=c.url};if(s.card)return done(s.card);
+  if(!cardJob){const cur=s;cardJob=drawCard().then(b=>{cardJob=null;if(s!==cur||!b)return null;s.card={blob:b,url:URL.createObjectURL(b)};return s.card}).catch(()=>{cardJob=null;return null})}
+  return cardJob.then(done)}
+async function getCard(){if(!s.card){await prepareCard()}return s.card}
+function shareMsg(t){const m=$('shareMsg');if(m)m.textContent=t}
+async function copyCaption(){try{await navigator.clipboard.writeText(caption());return true}catch(e){return false}}
+async function downloadCard(){const c=await getCard();if(!c)return false;const a=document.createElement('a');a.href=c.url;a.download='Min-sjokoladeplate.png';document.body.appendChild(a);a.click();a.remove();return true}
+async function shareCardTo(app){
+  const c=await getCard();if(!c)return shareMsg('Bildet kunne ikke lages. Prøv igjen.');
+  const file=new File([c.blob],'Min-sjokoladeplate.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{await navigator.share({files:[file],text:caption()});shareMsg(app?`Velg ${app} i delingsmenyen.`:'Takk for at du deler!')}catch(e){if(e.name!=='AbortError')shareMsg('Delingen ble avbrutt.')}return}
+  const dl=await downloadCard(),cp=await copyCaption();
+  shareMsg((dl?'Bildet er lastet ned':'Bildet kunne ikke lastes ned')+(cp?' og teksten er kopiert':'')+'. '+(app?`Åpne ${app} og legg det ut, for eksempel i en story.`:'Legg det ut der du vil.'))}
 function enterStation(){cancelPour();if(s.step===2)setRot(180);else if(s.step<2)setRot(0);render();const heading=$('panel').querySelector('h2');heading.tabIndex=-1;heading.focus({preventScroll:true});if(innerWidth<881)$('panel').scrollIntoView({behavior:reduce?'instant':'smooth',block:'start'})}
 
 function err(m){s.err=m;buzz();const e=$('err');if(e)e.textContent=m}
@@ -710,15 +914,17 @@ function bind(){
     if(b.dataset.c!=='white'&&s.ink==='choc')s.ink='gold';
     pourChoc(b.dataset.c);setRot(0);void 0});
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const k=b.dataset.f;
-    if(s.fill.includes(k))s.fill=s.fill.filter(x=>x!==k);
+    s.alNote='';if(s.fill.includes(k))s.fill=s.fill.filter(x=>x!==k);
     else if(s.fill.length<3){s.fill.push(k);s.justAdded=k;plop()}
     else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');return err('Automaten tar maks tre typer. Fjern en før du velger en ny.')}
     s.err='';setRot(0);render()});
-  const us=$('useSug');if(us)us.onclick=()=>{s.fill=[...SUGGEST[s.choc].p];s.justAdded=s.fill[0];plop();s.err='';setRot(0);render()};
-  const sp=$('surprise');if(sp)sp.onclick=()=>{let c;do{c=SURPRISE[Math.floor(Math.random()*SURPRISE.length)]}while(c.join()===s.fill.join());s.fill=[...c];s.justAdded=c[0];plop();s.err='';setRot(0);render()};
+  const us=$('useSug');if(us)us.onclick=()=>{if(!s.choc)return err('Velg sjokolade først.');const p=[...sugFor(s.choc).p];if(!p.length)return err('Ingen godteri passer med filteret ditt.');s.fill=p;s.alNote='';s.justAdded=s.fill[0];plop();s.err='';setRot(0);render()};
+  const sp=$('surprise');if(sp)sp.onclick=()=>{const ok=SURPRISE.filter(c=>c.every(k=>!excluded(k))&&c.join()!==s.fill.join());let c;
+    if(ok.length)c=ok[Math.floor(Math.random()*ok.length)];else{const al=Object.keys(CA).filter(k=>!excluded(k)).sort(()=>Math.random()-.5);c=al.slice(0,2)}
+    if(!c.length)return err('Ingen godteri passer med filteret ditt.');s.alNote='';s.fill=[...c];s.justAdded=c[0];plop();s.err='';setRot(0);render()};
   document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{s.mode=b.dataset.m;s.err='';render();setRot(180)});
   document.querySelectorAll('[data-font]').forEach(b=>b.onclick=()=>{s.font=b.dataset.font;document.querySelectorAll('[data-font]').forEach(x=>x.setAttribute('aria-pressed',x===b));paintBar();stampPrint();setRot(180);clank()});
-  document.querySelectorAll('[data-ink]').forEach(b=>b.onclick=()=>{s.ink=b.dataset.ink;document.querySelectorAll('[data-ink]').forEach(x=>x.setAttribute('aria-pressed',x===b));paintBar();stampPrint();setRot(180);clank()});
+  document.querySelectorAll('[data-ink]').forEach(b=>b.onclick=()=>{s.ink=b.dataset.ink;document.querySelectorAll('[data-ink]').forEach(x=>x.setAttribute('aria-pressed',x===b));const fr=$('cropFrame');if(fr){fr.style.setProperty('--ink',INKS[s.ink]);fr.classList.toggle('dark',isDarkInk())}paintBar();stampPrint();setRot(180);clank()});
   const t=$('txt');if(t)t.oninput=e=>{s.text=e.target.value;$('cnt').textContent=s.text.length+'/20';if(s.err){s.err='';$('err').textContent=''}paintBar();updateSummary();renderPipeline();if(Math.abs(((s.rotY%360)+360)%360-180)>40)setRot(180)};
   const up=$('up'),dz=$('dropzone');
   const load=f=>{
@@ -729,14 +935,14 @@ function bind(){
     r.onerror=()=>{if(s===current)err('Bildet kunne ikke leses. Prøv et annet bilde.')};
     r.onload=()=>{const im=new Image();im.onerror=()=>{if(s===current)err('Filen kunne ikke åpnes som et bilde.')};im.onload=()=>{
       if(s!==current)return;
-      const scale=Math.min(1,1600/Math.max(im.width,im.height));
-      const cv=document.createElement('canvas');cv.width=Math.max(1,Math.round(im.width*scale));cv.height=Math.max(1,Math.round(im.height*scale));cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
-      s.img=cv.toDataURL('image/png');s.err='';if(s.step===2){render();setRot(180);stampPrint();plop()}
+      const k=Math.min(1,1600/Math.max(im.width,im.height)),src=document.createElement('canvas');src.width=Math.max(1,Math.round(im.width*k));src.height=Math.max(1,Math.round(im.height*k));src.getContext('2d').drawImage(im,0,0,src.width,src.height);
+      s.src={cv:src,url:src.toDataURL('image/jpeg',.9),w:src.width,h:src.height};s.crop=defaultCrop(src.width,src.height);s.img=makePrint(src,s.crop);s.err='';if(s.step===2){render();setRot(180);stampPrint();plop()}
     };im.src=r.result};r.readAsDataURL(f)
   };
   if(up)up.onchange=e=>load(e.target.files[0]);
   if(dz){dz.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();up.click()}};dz.ondragover=e=>{e.preventDefault();dz.classList.add('over')};dz.ondragleave=()=>dz.classList.remove('over');dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');load(e.dataTransfer.files[0])}}
-  const rm=$('rm');if(rm)rm.onclick=()=>{s.img=null;render()};
+  const rm=$('rm');if(rm)rm.onclick=()=>{s.img=null;s.src=null;s.crop=null;render()};
+  bindCropper();
   const pv=$('prev');if(pv)pv.onclick=()=>{s.step--;s.err='';clank();enterStation()};
   const nx=$('next');if(nx)nx.onclick=()=>{
     if(s.step===0&&!s.choc)return err('Velg en sjokoladetank først.');
@@ -745,7 +951,16 @@ function bind(){
     if(s.step===2&&s.mode==='image'&&!s.img)return err('Last opp et bilde først.');
     s.err='';s.step++;s.reached=Math.max(s.reached,s.step);clank();enterStation()};
   const od=$('order');if(od)od.onclick=sendToProduction;
-  const sh=$('shareBtn');if(sh)sh.onclick=()=>{s.share=!s.share;render()};
+  const sn=$('shareNative');if(sn)sn.onclick=()=>shareCardTo('');
+  document.querySelectorAll('[data-soc]').forEach(b=>b.onclick=()=>shareCardTo(b.dataset.soc));
+  const dc=$('dlCard');if(dc)dc.onclick=async()=>shareMsg(await downloadCard()?'Bildet er lastet ned.':'Bildet kunne ikke lages.');
+  const cc=$('copyCap');if(cc)cc.onclick=async()=>shareMsg(await copyCaption()?'Teksten er kopiert. Lim den inn når du deler.':'Kunne ikke kopiere. Teksten er: '+caption());
+  const ad=$('alDetails');if(ad)ad.ontoggle=()=>{s.alOpen=ad.open};
+  document.querySelectorAll('[data-avoid]').forEach(b=>b.onclick=()=>{const a=b.dataset.avoid;
+    s.avoid=s.avoid.includes(a)?s.avoid.filter(x=>x!==a):[...s.avoid,a];
+    const gone=s.fill.filter(excluded);s.fill=s.fill.filter(k=>!excluded(k));
+    s.alNote=gone.length?'Fjernet fra platen: '+gone.map(k=>CA[k].n).join(', ')+'.':'';s.err='';clank();render();
+    const nb=document.querySelector(`[data-avoid="${a}"]`);if(nb)nb.focus()});
   const dl=$('downloadRecipe');if(dl)dl.onclick=downloadRecipe;
   const ag=$('again');if(ag)ag.onclick=resetAll;
 }
@@ -759,7 +974,7 @@ function sendToProduction(){
   else{bar.style.opacity='0';lid.classList.remove('open')}
   productionTimer=setTimeout(()=>{ding();confetti();render();$('restart').disabled=false},reduce?0:1300);
 }
-function resetAll(){cancelPour();clearTimeout(productionTimer);clearInterval(typeTimer);const bar=$('bar');bar.classList.remove('packing');bar.style.opacity='';$('box').classList.remove('show');$('lid').classList.add('open');$('beltwrap').classList.remove('stop');s=fresh();setRot(0);render()}
+function resetAll(){cancelPour();if(s.card)URL.revokeObjectURL(s.card.url);clearTimeout(productionTimer);clearInterval(typeTimer);const bar=$('bar');bar.classList.remove('packing');bar.style.opacity='';$('box').classList.remove('show');$('lid').classList.add('open');$('beltwrap').classList.remove('stop');s=fresh();setRot(0);render()}
 
 (function(){const sc=$('scene');let start=null,base=0;
   sc.addEventListener('pointerdown',e=>{if(s.ordered)return;start=e.clientX;base=s.rotY;sc.setPointerCapture(e.pointerId)});
