@@ -152,7 +152,7 @@ button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid v
 .print-img{position:absolute;inset:0;filter:drop-shadow(0 -1px 0 rgba(0,0,0,.45)) drop-shadow(0 1px 0 rgba(255,255,255,.18))}
 .print-img i{position:absolute;inset:0;display:block;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 .face.back .segs{z-index:1;pointer-events:none}
-.print-text{line-height:1.05;word-break:break-word;padding:0 6px}
+.relief{position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat}
 .stamp{animation:stamp .5s cubic-bezier(.3,1.8,.5,1)}
 @keyframes stamp{0%{transform:scale(1.5);opacity:0}100%{transform:none;opacity:1}}
 .belt-wrap{position:absolute;left:-6px;right:-6px;bottom:44px;height:58px;z-index:1}
@@ -234,9 +234,6 @@ button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid v
 .fonts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .fontb{border:2px solid var(--brass-lo);border-radius:12px;padding:7px 4px;font-size:19px;background:#FFF9EC}
 .fontb[aria-pressed="true"]{background:var(--brass-grad);border-color:var(--brass-dk);box-shadow:0 3px 0 var(--brass-dk)}
-.swatches{display:flex;gap:10px;flex-wrap:wrap}
-.sw{width:36px;height:36px;border-radius:50%;border:3px solid var(--brass);box-shadow:0 0 0 2px var(--brass-dk)}
-.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--brass-dk),0 0 0 6px var(--enamel)}
 .dropzone{display:grid;place-items:center;gap:6px;text-align:center;border:3px dashed var(--brass-lo);border-radius:16px;padding:22px;cursor:pointer;color:var(--brass-dk);font-weight:800;background:#FFF9EC}
 .dropzone:hover,.dropzone.over{border-color:var(--enamel);color:var(--enamel)}
 .err{color:var(--danger);font-weight:800;font-size:14px;min-height:20px;margin:8px 0 0}
@@ -292,7 +289,7 @@ body{background:radial-gradient(ellipse at 15% 0%,#f8e8c9,transparent 60%),#f5ef
 .tanks{gap:10px}.tank{border:2px solid #e8ddc8;background:#fffaf0;border-radius:16px;padding:14px 8px 12px;position:relative}.tank[aria-pressed=true]{border-color:#9c344a;background:#fbefed;box-shadow:0 0 0 1px #9c344a}.tank svg{max-width:94px}.tank .tag{font-family:var(--body);font-weight:800;text-transform:none;border:0;box-shadow:none;background:none;text-shadow:none;padding:4px}.tank[aria-pressed=true] .tag{background:none;color:#8e2940;text-shadow:none}.tank small{font-size:12px;line-height:1.5}
 .jar{border:2px solid #e8ddc8;border-radius:13px;background:#fffaf0;padding:10px 4px}.jar[aria-pressed=true]{border-color:#9c344a;background:#fbefed}.jar .jl{background:none;font-size:12px;min-height:30px;line-height:1.25}.jars{gap:9px}.prof{margin-bottom:18px}.speech{border:1px solid #decaa8}.profile{border:0;margin-top:18px;padding:14px;background:#f3ecdc}
 .btn-enamel{background:#99354b;border:1px solid #99354b;box-shadow:0 3px 0 #652235;font-family:var(--body);font-size:15px;font-weight:800;text-transform:none;letter-spacing:0;text-shadow:none;padding:13px 18px}.btn-ghost{background:transparent;border:1px solid #d5c3a7;font-family:var(--body);font-weight:800;letter-spacing:0;text-transform:none;min-height:44px}.navrow{padding-top:16px;border-top:1px solid #e9decd;margin-top:12px}.err:empty{min-height:0;margin:0}.err{margin-top:14px}
-.mode{font-family:var(--body);text-transform:none;letter-spacing:0;font-weight:800;background:#fffaf0;border-color:#ddcfb8}.mode[aria-pressed=true]{background:#f8eceb;border-color:#99354b;box-shadow:none}.field>span{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:13px;font-weight:800}.sw{width:40px;height:40px}.fontb{min-height:46px}.txt{border-color:#ccbaa0}.ticket{background:#f7ebd3;border:1px solid #d9c29b;box-shadow:none}.ticket:before{display:none}.ticket h3{font-family:Georgia,serif;text-align:left;font-size:27px;margin-bottom:14px}.trow{padding:10px 0;border-bottom:1px dashed #ceba98}.trow span:first-child{font-family:var(--body);font-size:13px;text-transform:none;letter-spacing:0}.price{border-top:0}
+.mode{font-family:var(--body);text-transform:none;letter-spacing:0;font-weight:800;background:#fffaf0;border-color:#ddcfb8}.mode[aria-pressed=true]{background:#f8eceb;border-color:#99354b;box-shadow:none}.field>span{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:13px;font-weight:800}.fontb{min-height:46px}.txt{border-color:#ccbaa0}.ticket{background:#f7ebd3;border:1px solid #d9c29b;box-shadow:none}.ticket:before{display:none}.ticket h3{font-family:Georgia,serif;text-align:left;font-size:27px;margin-bottom:14px}.trow{padding:10px 0;border-bottom:1px dashed #ceba98}.trow span:first-child{font-family:var(--body);font-size:13px;text-transform:none;letter-spacing:0}.price{border-top:0}
 .live-summary{margin:22px 4px 0;padding:18px 20px;border:1px solid #dfd1b9;border-radius:16px;background:#fffaf1}.summary-heading{display:flex;justify-content:space-between;gap:16px;align-items:center}.summary-heading strong{font-family:Georgia,serif;font-size:22px}.summary-heading span{font-size:13px;color:var(--muted)}.live-summary p{margin:8px 0;color:var(--muted);font-size:14px}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.chip{border-radius:20px;background:#eee3d0;padding:4px 10px;font-size:12px;font-weight:800}.preview-note{font-size:12px;color:var(--muted);text-align:center;margin:14px 0}
 button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid #267e83;outline-offset:4px}button:disabled{cursor:default}.step-note{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:#886346;font-weight:800;margin-bottom:12px}
 dialog{border:1px solid #d7c3a4;border-radius:20px;padding:28px;max-width:420px;width:calc(100% - 32px);color:var(--ink);background:#fffcf5;box-shadow:0 24px 80px #24140b55}dialog::backdrop{background:#24140b88}dialog h2{font-family:Georgia,serif;margin-top:0}dialog .final{justify-content:flex-end;margin-top:24px}
@@ -374,10 +371,7 @@ footer{margin-top:16px}
 /* Bildeutsnitt */
 .crop-frame{position:relative;width:100%;aspect-ratio:330/210;border-radius:10px;overflow:hidden;cursor:grab;touch-action:none;user-select:none;box-shadow:inset 0 0 0 3px rgba(0,0,0,.2),0 3px 10px rgba(60,30,10,.2);isolation:isolate}
 .crop-frame.grabbing{cursor:grabbing}
-.crop-frame img{position:absolute;max-width:none;pointer-events:none;filter:grayscale(1) contrast(1.3);mix-blend-mode:screen}
-.crop-frame.dark img{mix-blend-mode:multiply}
-.crop-frame .crop-ink{position:absolute;inset:0;background:var(--ink);mix-blend-mode:multiply;pointer-events:none}
-.crop-frame.dark .crop-ink{display:none}
+.crop-frame .crop-relief{position:absolute;inset:0;background-size:100% 100%;pointer-events:none}
 .crop-frame .crop-segs{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(90deg,transparent calc(25% - 1px),rgba(0,0,0,.25) calc(25% - 1px) calc(25% + 1px),transparent calc(25% + 1px)),linear-gradient(90deg,transparent calc(50% - 1px),rgba(0,0,0,.25) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(90deg,transparent calc(75% - 1px),rgba(0,0,0,.25) calc(75% - 1px) calc(75% + 1px),transparent calc(75% + 1px)),linear-gradient(0deg,transparent calc(50% - 1px),rgba(0,0,0,.25) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
 .crop-ctrl{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
 .crop-ctrl input[type=range]{flex:1;min-width:110px;accent-color:#99354b}
@@ -417,7 +411,7 @@ details.alfilter .al-hint{font-size:12.5px;font-weight:600;color:var(--muted)}
 .share-actions .share-msg{margin:0;font-size:13px;font-weight:700;color:#2E5228}
 .share-actions .share-msg:empty{display:none}
 @media(max-width:460px){.sharebox .share{grid-template-columns:minmax(0,1fr)}.card-prev{max-width:200px;margin:0 auto}}
-@media(min-width:881px){.sharebox .share{grid-template-columns:minmax(0,128px) minmax(0,1fr)}.jar .jl{min-height:0!important;padding:1px 3px}.jar .als{margin-top:4px}.jar .al{font-size:10.5px;padding:1px 6px}.panel .lead{margin-bottom:10px}.prof{margin-bottom:8px}.alfilter{margin-bottom:8px;padding:6px 10px}.crop-frame{width:min(100%,310px);margin:0 auto}.ink-field{display:flex;align-items:center;gap:14px}.ink-field .sw{width:36px;height:36px}.crop-frame+.crop-ctrl+.ink-note{margin-top:4px}.crop-ctrl{margin-top:6px}.modes{margin-bottom:8px!important}}
+@media(min-width:881px){.sharebox .share{grid-template-columns:minmax(0,128px) minmax(0,1fr)}.jar .jl{min-height:0!important;padding:1px 3px}.jar .als{margin-top:4px}.jar .al{font-size:10.5px;padding:1px 6px}.panel .lead{margin-bottom:10px}.prof{margin-bottom:8px}.alfilter{margin-bottom:8px;padding:6px 10px}.crop-frame{width:min(100%,310px);margin:0 auto}.crop-frame+.crop-ctrl+.ink-note{margin-top:4px}.crop-ctrl{margin-top:6px}.modes{margin-bottom:8px!important}}
 </style>
 </head>
 <body>
@@ -589,10 +583,8 @@ const SURPRISE=[['lic','berry'],['nut','sour'],['caramel','berry','nut'],['lic',
 const STATIONS=['Tankene','Godteriautomaten','Trykkeriet','Pakkeriet'];
 const SHORT=['Tanker','Godteri','Trykk','Pakking'];
 const FONTS={play:{n:'Leken',f:"'Chewy',system-ui,sans-serif",s:1.05},script:{n:'Skrift',f:"'Pacifico',cursive",s:.85},classic:{n:'Klassisk',f:"'Fraunces',Georgia,serif",s:.95}};
-const INKS={gold:'#FFD45C',cream:'#FFF4E2',pink:'#FF7AB4',mint:'#4FE3C1',choc:'#3E2415'};
-const INKNAMES={gold:'Gull',cream:'Krem',pink:'Rosa',mint:'Mint',choc:'Sjokolade'};
 
-const fresh=()=>({step:0,reached:0,choc:null,fill:[],mode:'text',text:'',font:'play',ink:'gold',img:null,err:'',ordered:false,order:null,rotY:0,justAdded:null,avoid:[],alNote:'',card:null,src:null,crop:null,alOpen:false});
+const fresh=()=>({step:0,reached:0,choc:null,fill:[],mode:'text',text:'',font:'play',img:null,err:'',ordered:false,order:null,rotY:0,justAdded:null,avoid:[],alNote:'',card:null,src:null,crop:null,alOpen:false});
 const ALLERGENS=['melk','egg','hasselnøtter'];
 const cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
 function splitAl(list){const c=[],t=[];list.forEach(a=>{if(a.includes('(spor)')){const b=a.replace(' (spor)','');if(!t.includes(b))t.push(b)}else if(!c.includes(a))c.push(a)});return{c,t:t.filter(a=>!c.includes(a))}}
@@ -668,7 +660,6 @@ addEventListener('resize',()=>{if(!$('factory').hidden)placePipe()});
 
 function setRot(y,animate=true){s.rotY=y;const b=$('bar');b.classList.toggle('dragging',!animate);b.style.transform=`rotateX(-8deg) rotateY(${y}deg)`;
   const n=((y%360)+360)%360,back=n>90&&n<270;$('showFront').setAttribute('aria-pressed',!back);$('showBack').setAttribute('aria-pressed',back)}
-const isDarkInk=()=>s.ink==='choc';
 /* Gjør et opplastet bilde om til et sjokoladetrykk: tilpasset platens format (330:210), i gråtoner, som maske for trykkfargen. */
 /* Utsnitt: z = zoom relativt til «hele bildet synlig», x/y = forskyvning av bildets midtpunkt i andeler av platen. */
 function fitScale(w,h,W=330,H=210){return Math.min(W/w,H/h)}
@@ -678,26 +669,49 @@ function maxZ(w,h){return Math.max(4,coverZ(w,h)*3)}
 function clampCrop(c,w,h){const z=Math.min(maxZ(w,h),Math.max(1,c.z)),sc=fitScale(w,h)*z,dw=w*sc/330,dh=h*sc/210,mx=Math.abs(dw-1)/2,my=Math.abs(dh-1)/2;
   return{z,x:Math.min(mx,Math.max(-mx,c.x)),y:Math.min(my,Math.max(-my,c.y))}}
 function cropRect(c,w,h,W,H){const sc=fitScale(w,h,W,H)*c.z,dw=w*sc,dh=h*sc;return[W/2+c.x*W-dw/2,H/2+c.y*H-dh/2,dw,dh]}
+/* Støpt relieff: et høydekart (0 = platens overflate, 1 = høyeste punkt) gjøres om til lys og skygge.
+   Resultatet er et gjennomsiktig PNG-lag med bare høylys og skygger, så motivet får alltid samme farge som sjokoladen. */
+function boxBlur(src,W,H,r){if(r<1)return src;const tmp=new Float32Array(W*H),out=new Float32Array(W*H),n=2*r+1;
+  for(let y=0;y<H;y++){let acc=0;const o=y*W;for(let x=-r;x<=r;x++)acc+=src[o+Math.min(W-1,Math.max(0,x))];
+    for(let x=0;x<W;x++){tmp[o+x]=acc/n;acc+=src[o+Math.min(W-1,x+r+1)]-src[o+Math.max(0,x-r)]}}
+  for(let x=0;x<W;x++){let acc=0;for(let y=-r;y<=r;y++)acc+=tmp[Math.min(H-1,Math.max(0,y))*W+x];
+    for(let y=0;y<H;y++){out[y*W+x]=acc/n;acc+=tmp[Math.min(H-1,y+r+1)*W+x]-tmp[Math.max(0,y-r)*W+x]}}
+  return out}
+function shadeRelief(hm,W,H,strength=1){
+  const k=W/660,S=2.6*strength/k,d=Math.max(1,Math.round(3*k)),out=new ImageData(W,H),o=out.data;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const j=y*W+x,h=hm[j];
+    const gx=hm[y*W+Math.min(W-1,x+1)]-hm[y*W+Math.max(0,x-1)],gy=hm[Math.min(H-1,y+1)*W+x]-hm[Math.max(0,y-1)*W+x];
+    const lit=(gx+gy)*S;                                  // lys fra øvre venstre hjørne
+    const cast=Math.max(0,hm[Math.max(0,y-d)*W+Math.max(0,x-d)]-h)*.55; // hevede deler kaster skygge ned mot høyre
+    const v=lit+h*.07-cast;                               // toppflaten fanger litt mer lys
+    const k4=j*4;if(v>=0){o[k4]=o[k4+1]=o[k4+2]=255;o[k4+3]=Math.min(255,v*.85*255)}else{o[k4]=28;o[k4+1]=12;o[k4+2]=4;o[k4+3]=Math.min(255,-v*.9*255)}}
+  const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').putImageData(out,0,0);return c.toDataURL('image/png')}
 function makePrint(im,crop,W=660,H=420){
-  const w=im.width,h=im.height,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
-  const r=cropRect(crop,w,h,W,H);
-  const covers=r[0]<=.5&&r[1]<=.5&&r[0]+r[2]>=W-.5&&r[1]+r[3]>=H-.5;
-  if(!covers){ // bildet dekker ikke hele platen: mykt utfylt bakgrunn
-    const sm=document.createElement('canvas');sm.width=22;sm.height=14;const sx=sm.getContext('2d');const sc=Math.max(22/w,14/h);sx.drawImage(im,(22-w*sc)/2,(14-h*sc)/2,w*sc,h*sc);
-    cx.imageSmoothingEnabled=true;cx.imageSmoothingQuality='high';cx.drawImage(sm,0,0,W,H)}
-  cx.drawImage(im,r[0],r[1],r[2],r[3]);
-  const box=covers?[0,0,W,H]:[Math.max(0,r[0]),Math.max(0,r[1]),Math.min(W,r[0]+r[2])-Math.max(0,r[0]),Math.min(H,r[1]+r[3])-Math.max(0,r[1])];
-  const d=cx.getImageData(0,0,W,H),px=d.data,L=new Float32Array(W*H),hist=new Uint32Array(256);let n=0;
-  for(let i=0,j=0;i<px.length;i+=4,j++){const l=(.299*px[i]+.587*px[i+1]+.114*px[i+2])*(px[i+3]/255)+(255-px[i+3]);L[j]=l;const x=j%W,y=(j/W)|0;if(x>=box[0]&&x<box[0]+box[2]&&y>=box[1]&&y<box[1]+box[3]){hist[Math.min(255,l|0)]++;n++}}
+  const w=im.width,h=im.height,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d',{willReadFrequently:true});
+  const r=cropRect(crop,w,h,W,H);cx.drawImage(im,r[0],r[1],r[2],r[3]);
+  const x0=Math.max(0,Math.floor(r[0])),y0=Math.max(0,Math.floor(r[1])),x1=Math.min(W,Math.ceil(r[0]+r[2])),y1=Math.min(H,Math.ceil(r[1]+r[3]));
+  const px=cx.getImageData(0,0,W,H).data,L=new Float32Array(W*H),hist=new Uint32Array(256);let n=0;
+  for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){const j=y*W+x,i=j*4,l=(.299*px[i]+.587*px[i+1]+.114*px[i+2])*(px[i+3]/255)+(255-px[i+3]);L[j]=l;hist[Math.min(255,l|0)]++;n++}
   let lo=0,hi=255,acc=0;for(let v=0;v<256;v++){acc+=hist[v];if(acc<=n*.02)lo=v;if(acc<n*.98)hi=v+1}if(hi-lo<20){lo=Math.max(0,lo-10);hi=Math.min(255,hi+10)}
-  const light=new ImageData(W,H),dark=new ImageData(W,H),f=14*W/660;
-  for(let j=0;j<W*H;j++){const x=j%W,y=(j/W)|0;
-    const dx=Math.max(box[0]-x,x-(box[0]+box[2]),0),dy=Math.max(box[1]-y,y-(box[1]+box[3]),0),out=Math.min(1,Math.hypot(dx,dy)/f),wgt=1-out*.75;
-    let v=Math.min(1,Math.max(0,(L[j]-lo)/(hi-lo)));v=Math.pow(v,.9);const k=j*4;
-    light.data[k]=light.data[k+1]=light.data[k+2]=dark.data[k]=dark.data[k+1]=dark.data[k+2]=255;
-    light.data[k+3]=Math.round(v*.94*wgt*255);dark.data[k+3]=Math.round((1-v)*.94*wgt*255)}
-  const toUrl=id=>{const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').putImageData(id,0,0);return c.toDataURL('image/png')};
-  return{light:toUrl(light),dark:toUrl(dark)}}
+  const hm=new Float32Array(W*H);
+  const ramp=14*W/660; // kanter som ligger inne på platen skrår mykt ned
+  const fx=x=>Math.min(x0===0?1:Math.min(1,(x-x0)/ramp),x1===W?1:Math.min(1,(x1-1-x)/ramp)),fy=y=>Math.min(y0===0?1:Math.min(1,(y-y0)/ramp),y1===H?1:Math.min(1,(y1-1-y)/ramp));
+  for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){const j=y*W+x,e=Math.max(0,Math.min(fx(x),fy(y)));hm[j]=e*(.18+.82*Math.min(1,Math.max(0,(L[j]-lo)/(hi-lo))))} // motivet står på en lav sokkel
+  return shadeRelief(boxBlur(boxBlur(hm,W,H,Math.max(1,Math.round(1.5*W/660))),W,H,1),W,H,1)}
+let textRelief={key:'',url:''};
+function makeTextRelief(text,F,W=660,H=420){
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d',{willReadFrequently:true});
+  let size=Math.round(150*F.s);cx.font=`${size}px ${F.f}`;while(cx.measureText(text).width>W*.84&&size>24){size-=4;cx.font=`${size}px ${F.f}`}
+  cx.fillStyle='#fff';cx.textAlign='center';cx.textBaseline='middle';cx.fillText(text,W/2,H/2+size*.06);
+  const px=cx.getImageData(0,0,W,H).data,hm=new Float32Array(W*H);for(let j=0;j<W*H;j++)hm[j]=px[j*4+3]/255;
+  return shadeRelief(boxBlur(boxBlur(hm,W,H,2),W,H,2),W,H,1.25)}
+function currentRelief(){
+  if(s.mode==='image')return s.img||'';
+  const n=s.text.trim();if(!n)return '';const F=FONTS[s.font],key=n+'|'+s.font;
+  if(textRelief.key!==key){
+    if(document.fonts&&!document.fonts.check(`40px ${F.f}`)){document.fonts.load(`40px ${F.f}`).then(()=>{textRelief.key='';paintBar()});}
+    textRelief={key,url:makeTextRelief(n,F)}}
+  return textRelief.url}
 function paintBar(){
   const ch=s.choc?CH[s.choc]:{c:'#4E6F6C',e:'#35504E',ink:'#E6F2EF'};
   $('bar').style.setProperty('--bar',ch.c);$('bar').style.setProperty('--bar-edge',ch.e);
@@ -709,10 +723,8 @@ function paintBar(){
   $('ph-front').style.color=ch.ink;
   $('ph-front').textContent=!s.choc?'Formen er tom. Velg sjokolade i tankene.':(s.fill.length?'':'Velg fyll i godteriautomaten');
   const pr=$('print');
-  pr.classList.toggle('full',!!(s.mode==='image'&&s.img));
-  if(s.mode==='image'&&s.img){const m=isDarkInk()?s.img.dark:s.img.light;pr.innerHTML=`<div class="print-img" role="img" aria-label="Bildet ditt som sjokoladetrykk"><i style="background:${INKS[s.ink]};-webkit-mask-image:url(${m});mask-image:url(${m})"></i></div>`}
-  else if(s.mode==='text'&&s.text.trim()){const F=FONTS[s.font],n=s.text.trim(),base=n.length>16?24:n.length>10?32:n.length>5?40:48;
-    pr.innerHTML=`<div class="print-text" style="font-family:${F.f};font-size:${Math.round(base*F.s)}px;color:${INKS[s.ink]}">${esc(n)}</div>`}
+  const rel=currentRelief();pr.classList.toggle('full',!!rel);
+  if(rel)pr.innerHTML=`<div class="relief" role="img" aria-label="${s.mode==='image'?'Bildet ditt':'Teksten din'} støpt i sjokoladen" style="background-image:url(${rel})"></div>`;
   else pr.innerHTML=`<div style="color:${ch.ink};font-weight:800;opacity:.8;font-size:15px;border:2px dashed currentColor;border-radius:8px;padding:18px 14px">${s.mode==='image'?'Bildet ditt kommer her':'Teksten din kommer her'}</div>`;
   setGauge();
 }
@@ -752,21 +764,21 @@ function professorSVG(){return `<svg viewBox="0 0 80 96" aria-hidden="true"><pat
 
 function validThrough(){if(!s.choc)return 0;if(!s.fill.length)return 1;if(s.mode==='text'?!s.text.trim():!s.img)return 2;return 3}
 function updateSummary(){
-  $('summary').innerHTML=`<div class="summary-heading"><strong>Din kreasjon</strong><span>189 kr · eksempelpris</span></div><p>${s.choc?esc(CH[s.choc].full):'Begynn med sjokoladen du liker best.'}${s.choc?' · ca. '+(s.fill.length?180:70)+' g':''}</p><div class="chips">${s.fill.map(k=>`<span class="chip">${esc(CA[k].n)}</span>`).join('')}${s.mode==='text'&&s.text.trim()?`<span class="chip">«${esc(s.text.trim())}»</span>`:s.mode==='image'&&s.img?'<span class="chip">Bildetrykk</span>':''}</div>`+(s.choc?`<div class="sum-al">Allergener: ${alBadges(plateAl())}</div>`:'');
+  $('summary').innerHTML=`<div class="summary-heading"><strong>Din kreasjon</strong><span>189 kr · eksempelpris</span></div><p>${s.choc?esc(CH[s.choc].full):'Begynn med sjokoladen du liker best.'}${s.choc?' · ca. '+(s.fill.length?180:70)+' g':''}</p><div class="chips">${s.fill.map(k=>`<span class="chip">${esc(CA[k].n)}</span>`).join('')}${s.mode==='text'&&s.text.trim()?`<span class="chip">«${esc(s.text.trim())}»</span>`:s.mode==='image'&&s.img?'<span class="chip">Støpt bilde</span>':''}</div>`+(s.choc?`<div class="sum-al">Allergener: ${alBadges(plateAl())}</div>`:'');
 }
 function downloadRecipe(){
-  const recipe=['SJOKOLADEFABRIKKEN — MIN OPPSKRIFT','',CH[s.choc].full,'Fyll: '+s.fill.map(k=>CA[k].n).join(', '),'Trykk: '+(s.mode==='text'?s.text.trim()+' ('+FONTS[s.font].n+', '+INKNAMES[s.ink]+')':'Bildetrykk ('+INKNAMES[s.ink]+')'),'Allergener: '+(()=>{const{c,t}=splitAl(plateAl());return [c.join(', ')||'ingen',t.length?'kan inneholde spor av '+t.join(', '):''].filter(Boolean).join('; ')})(),'Ca. 70 g sjokolade + 110 g fyll','','Prototype for brukertesting. Ingen bestilling er sendt.','Ingrediens- og allergenopplysninger er kun eksempeldata.'].join('\n');
+  const recipe=['SJOKOLADEFABRIKKEN — MIN OPPSKRIFT','',CH[s.choc].full,'Fyll: '+s.fill.map(k=>CA[k].n).join(', '),'Motiv på baksiden: '+(s.mode==='text'?s.text.trim()+' ('+FONTS[s.font].n+' skrift)':'Eget bilde')+', støpt som hevet relieff','Allergener: '+(()=>{const{c,t}=splitAl(plateAl());return [c.join(', ')||'ingen',t.length?'kan inneholde spor av '+t.join(', '):''].filter(Boolean).join('; ')})(),'Ca. 70 g sjokolade + 110 g fyll','','Prototype for brukertesting. Ingen bestilling er sendt.','Ingrediens- og allergenopplysninger er kun eksempeldata.'].join('\n');
   const url=URL.createObjectURL(new Blob([recipe],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Min-sjokoladeoppskrift.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 function cropStyle(){const r=cropRect(s.crop,s.src.w,s.src.h,330,210);return `left:${r[0]/3.3}%;top:${r[1]/2.1}%;width:${r[2]/3.3}%;height:${r[3]/2.1}%`}
 function cropperHTML(){const ch=CH[s.choc],mz=maxZ(s.src.w,s.src.h);
-  return `<div class="field"><span>Plasser bildet på platen</span><div class="crop-frame ${isDarkInk()?'dark':''}" id="cropFrame" style="background:${ch.c};--ink:${INKS[s.ink]}" role="application" aria-label="Bildeutsnitt. Dra for å flytte, bruk piltastene for å flytte og pluss eller minus for å zoome." tabindex="0">
-    <img src="${s.src.url}" alt="" draggable="false" id="cropImg" style="${cropStyle()}"><span class="crop-ink"></span><span class="crop-segs"></span></div>
+  return `<div class="field"><span>Plasser bildet på platen</span><div class="crop-frame" id="cropFrame" style="background:${ch.c}" role="application" aria-label="Bildeutsnitt. Dra for å flytte, bruk piltastene for å flytte og pluss eller minus for å zoome." tabindex="0">
+    <span class="crop-relief" id="cropRelief" style="background-image:url(${s.img})"></span><span class="crop-segs"></span></div>
     <div class="crop-ctrl"><button class="zbtn" type="button" id="zOut" aria-label="Zoom ut">−</button><input type="range" id="zoom" min="1" max="${mz.toFixed(2)}" step="0.01" value="${s.crop.z.toFixed(2)}" aria-label="Zoom"><button class="zbtn" type="button" id="zIn" aria-label="Zoom inn">+</button><button class="btn-ghost small-ghost" type="button" id="cropFit">Fyll platen</button><button class="btn-ghost small-ghost" type="button" id="cropAll">Vis hele</button></div>
-    <p class="ink-note">Dra i bildet for å flytte det, zoom med glideren eller to fingre. Trykkes i én spiselig farge. <label class="link-btn" for="up" tabindex="0" id="swapImg">Bytt bilde</label> · <button class="link-btn" type="button" id="rm">Fjern</button></p></div>`}
+    <p class="ink-note">Dra i bildet for å flytte det, zoom med glideren eller to fingre. Motivet støpes som et hevet relieff i sjokoladen. <label class="link-btn" for="up" tabindex="0" id="swapImg">Bytt bilde</label> · <button class="link-btn" type="button" id="rm">Fjern</button></p></div>`}
 let cropTimer=null;
-function applyCrop(final){const i=$('cropImg');if(i)i.style.cssText=cropStyle();const z=$('zoom');if(z)z.value=s.crop.z.toFixed(2);
-  clearTimeout(cropTimer);cropTimer=setTimeout(()=>{if(!s.src)return;s.img=makePrint(s.src.cv,s.crop,final?660:330,final?420:210);s.card=null;paintBar();if(Math.abs(((s.rotY%360)+360)%360-180)>40)setRot(180)},final?0:40)}
+function applyCrop(final){const z=$('zoom');if(z)z.value=s.crop.z.toFixed(2);
+  clearTimeout(cropTimer);cropTimer=setTimeout(()=>{if(!s.src)return;s.img=makePrint(s.src.cv,s.crop,final?660:330,final?420:210);s.card=null;const cr=$('cropRelief');if(cr)cr.style.backgroundImage=`url(${s.img})`;paintBar();if(Math.abs(((s.rotY%360)+360)%360-180)>40)setRot(180)},final?0:16)}
 function setCrop(c,final){s.crop=clampCrop(c,s.src.w,s.src.h);applyCrop(final)}
 function bindCropper(){const fr=$('cropFrame');if(!fr)return;const pts=new Map();let startC=null,startD=0,startMid=null;
   const rect=()=>fr.getBoundingClientRect();
@@ -785,7 +797,6 @@ function bindCropper(){const fr=$('cropFrame');if(!fr)return;const pts=new Map()
   $('zIn').onclick=()=>setCrop({...s.crop,z:s.crop.z*1.15},true);$('zOut').onclick=()=>setCrop({...s.crop,z:s.crop.z/1.15},true);
   $('cropFit').onclick=()=>{setCrop({z:coverZ(s.src.w,s.src.h),x:0,y:0},true);clank()};$('cropAll').onclick=()=>{setCrop({z:1,x:0,y:0},true);clank()};
   const sw=$('swapImg');if(sw)sw.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('up').click()}}}
-function inkField(){return `<div class="field ink-field"><span>Farge på trykket</span><div class="swatches">`+Object.entries(INKS).map(([k,v])=>`<button class="sw" type="button" data-ink="${k}" aria-pressed="${s.ink===k}" style="background:${v}" aria-label="${INKNAMES[k]}"></button>`).join('')+`</div></div>`}
 function title(i,t){return `<div class="title-plate"><span class="medal">${i}</span><h2 class="plate">${t}</h2></div>`}
 function nav(next){return `<p class="err" role="alert" id="err">${s.err}</p><div class="navrow">${s.step?'<button class="btn-ghost" type="button" id="prev">Tilbake</button>':'<span></span>'}${next?`<button class="btn-enamel" type="button" id="next">${next}</button>`:''}</div>`}
 function tankSVG(k){const c=CH[k];return `<svg viewBox="0 0 110 140" aria-hidden="true">
@@ -825,17 +836,17 @@ function render(){
     <div class="jars">`+Object.entries(CA).filter(([k])=>!excluded(k)).map(([k,v])=>`<button class="jar" type="button" data-f="${k}" aria-pressed="${s.fill.includes(k)}">${jarSVG(k)}<span class="jtxt"><span class="jl">${v.n}</span>${alBadges(v.al)}</span></button>`).join('')+`</div>`+profBars()+nav('Til trykkeriet');
   }
   if(s.step===2){
-    h=title(3,'Trykk på baksiden')+`<p class="lead">Velg tekst eller bilde. Trykket dekker hele baksiden av platen.</p>
-    <div class="modes"><button class="mode" type="button" data-m="text" aria-pressed="${s.mode==='text'}">Tekst<small>Et navn eller en hilsen</small></button><button class="mode" type="button" data-m="image" aria-pressed="${s.mode==='image'}">Bilde<small>Blir et sjokoladetrykk</small></button></div>`+
+    h=title(3,'Trykk på baksiden')+`<p class="lead">Velg tekst eller bilde. Motivet støpes i sjokoladen samtidig med platen, som et hevet relieff på baksiden.</p>
+    <div class="modes"><button class="mode" type="button" data-m="text" aria-pressed="${s.mode==='text'}">Tekst<small>Et navn eller en hilsen</small></button><button class="mode" type="button" data-m="image" aria-pressed="${s.mode==='image'}">Bilde<small>Støpes i sjokoladen</small></button></div>`+
     (s.mode==='text'?`
       <label class="field"><span>Tekst på platen</span><input class="txt" id="txt" type="text" maxlength="20" placeholder="Til min favoritt" value="${esc(s.text)}" autocomplete="off"><span class="count" id="cnt">${s.text.length}/20</span></label>
       <div class="field"><span>Skrift</span><div class="fonts">`+Object.entries(FONTS).map(([k,v])=>`<button class="fontb" type="button" data-font="${k}" aria-pressed="${s.font===k}" style="font-family:${v.f}">${v.n}</button>`).join('')+`</div></div>
-      `+inkField()
-    :(s.img&&s.src?cropperHTML()+`<input type="file" id="up" accept="image/jpeg,image/png" hidden>`+inkField()
+      <p class="ink-note">Teksten støpes som et hevet relieff i samme sjokolade som platen.</p>`
+    :(s.img&&s.src?cropperHTML()+`<input type="file" id="up" accept="image/jpeg,image/png" hidden>`
       :`<label class="dropzone" id="dropzone" for="up" tabindex="0"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>Slipp et bilde her, eller trykk for å velge<small style="font-weight:600">JPG eller PNG · maks 8 MB · du velger utsnittet selv</small></label><input type="file" id="up" accept="image/jpeg,image/png" hidden>`))+nav('Til pakkeriet');
   }
   if(s.step===3){
-    const tr=s.mode==='text'?`«${esc(s.text.trim())}» i ${FONTS[s.font].n.toLowerCase()} skrift`:`Bildetrykk i ${INKNAMES[s.ink].toLowerCase()}`;
+    const tr=s.mode==='text'?`«${esc(s.text.trim())}» i ${FONTS[s.font].n.toLowerCase()} skrift, støpt i relieff`:'Eget bilde, støpt i relieff';
     h=title(4,'Klar for produksjon')+`<p class="lead">Sjekk platen din før den går på samlebåndet.</p>
     <div class="ticket rivets"><h3>Fabrikkbillett</h3>
       <div class="trow"><span>Sjokolade</span><span>${CH[s.choc].full}</span></div>
@@ -877,9 +888,7 @@ async function drawCard(){
   const front=await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));
   // bakside med trykk
   const back=document.createElement('canvas');back.width=BW;back.height=BH;const bx=back.getContext('2d');bx.fillStyle=ch.c;bx.fillRect(0,0,BW,BH);
-  if(s.mode==='image'&&s.img){const m=await loadImg(isDarkInk()?s.img.dark:s.img.light);const t=document.createElement('canvas');t.width=BW;t.height=BH;const tx=t.getContext('2d');tx.drawImage(m,0,0,BW,BH);tx.globalCompositeOperation='source-in';tx.fillStyle=INKS[s.ink];tx.fillRect(0,0,BW,BH);bx.drawImage(t,0,0)}
-  else{const F=FONTS[s.font],n=s.text.trim();let size=150*F.s;bx.font=`${size}px ${F.f}`;while(bx.measureText(n).width>BW*.84&&size>30){size-=4;bx.font=`${size}px ${F.f}`}
-    bx.fillStyle=INKS[s.ink];bx.textAlign='center';bx.textBaseline='middle';bx.fillText(n,BW/2,BH/2)}
+  const rel=currentRelief();if(rel){const m=await loadImg(rel);bx.drawImage(m,0,0,BW,BH)}
   bx.strokeStyle='rgba(0,0,0,.12)';bx.lineWidth=8;bx.beginPath();[.25,.5,.75].forEach(f=>{bx.moveTo(BW*f,0);bx.lineTo(BW*f,BH)});bx.moveTo(0,BH/2);bx.lineTo(BW,BH/2);bx.stroke();
   const place=(img,cy,rot)=>{cx.save();cx.translate(W/2,cy);cx.rotate(rot*Math.PI/180);cx.shadowColor='rgba(60,30,10,.35)';cx.shadowBlur=40;cx.shadowOffsetY=18;rrect(cx,-BW/2,-BH/2,BW,BH,12);cx.fillStyle=ch.e;cx.fill();cx.shadowColor='transparent';
     cx.save();rrect(cx,-BW/2,-BH/2,BW,BH,12);cx.clip();cx.drawImage(img,-BW/2,-BH/2,BW,BH);cx.restore();cx.lineWidth=10;cx.strokeStyle='rgba(0,0,0,.18)';rrect(cx,-BW/2+5,-BH/2+5,BW-10,BH-10,10);cx.stroke();cx.restore()};
@@ -910,8 +919,6 @@ function bind(){
   document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{
     if(s.choc===b.dataset.c)return;document.querySelectorAll('[data-c]').forEach(x=>x.setAttribute('aria-pressed',x===b));
     s.err='';$('err').textContent='';
-    if(b.dataset.c==='white'&&(s.ink==='gold'||s.ink==='cream'))s.ink='choc';
-    if(b.dataset.c!=='white'&&s.ink==='choc')s.ink='gold';
     pourChoc(b.dataset.c);setRot(0);void 0});
   document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const k=b.dataset.f;
     s.alNote='';if(s.fill.includes(k))s.fill=s.fill.filter(x=>x!==k);
@@ -924,7 +931,6 @@ function bind(){
     if(!c.length)return err('Ingen godteri passer med filteret ditt.');s.alNote='';s.fill=[...c];s.justAdded=c[0];plop();s.err='';setRot(0);render()};
   document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{s.mode=b.dataset.m;s.err='';render();setRot(180)});
   document.querySelectorAll('[data-font]').forEach(b=>b.onclick=()=>{s.font=b.dataset.font;document.querySelectorAll('[data-font]').forEach(x=>x.setAttribute('aria-pressed',x===b));paintBar();stampPrint();setRot(180);clank()});
-  document.querySelectorAll('[data-ink]').forEach(b=>b.onclick=()=>{s.ink=b.dataset.ink;document.querySelectorAll('[data-ink]').forEach(x=>x.setAttribute('aria-pressed',x===b));const fr=$('cropFrame');if(fr){fr.style.setProperty('--ink',INKS[s.ink]);fr.classList.toggle('dark',isDarkInk())}paintBar();stampPrint();setRot(180);clank()});
   const t=$('txt');if(t)t.oninput=e=>{s.text=e.target.value;$('cnt').textContent=s.text.length+'/20';if(s.err){s.err='';$('err').textContent=''}paintBar();updateSummary();renderPipeline();if(Math.abs(((s.rotY%360)+360)%360-180)>40)setRot(180)};
   const up=$('up'),dz=$('dropzone');
   const load=f=>{
