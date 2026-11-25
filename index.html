@@ -151,7 +151,9 @@ button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid v
 .print-layer.full{inset:0;border-radius:4px}
 .print-img{position:absolute;inset:0;filter:drop-shadow(0 -1px 0 rgba(0,0,0,.45)) drop-shadow(0 1px 0 rgba(255,255,255,.18))}
 .print-img i{position:absolute;inset:0;display:block;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.face.back .segs{z-index:1;pointer-events:none}
+.mold{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.face{background-image:linear-gradient(118deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,0) 38%,rgba(0,0,0,0) 62%,rgba(0,0,0,.16) 100%)}
+.face.back::before,.crop-sheen{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 40%,rgba(0,0,0,0) 60%,rgba(0,0,0,.14) 100%)}
 .relief{position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat}
 .stamp{animation:stamp .5s cubic-bezier(.3,1.8,.5,1)}
 @keyframes stamp{0%{transform:scale(1.5);opacity:0}100%{transform:none;opacity:1}}
@@ -513,12 +515,11 @@ details.alfilter .al-hint{font-size:12.5px;font-weight:600;color:var(--muted)}
           <div class="bar3d" id="bar">
             <div class="face front" id="front">
               <div class="liquid" id="liquid"></div>
-              <div class="segs"></div>
+              <svg class="mold" id="mold" viewBox="0 0 330 210" preserveAspectRatio="none" aria-hidden="true"></svg>
               <svg class="candy-layer" id="candy" viewBox="0 0 330 210" aria-hidden="true"></svg>
               <div class="placeholder" id="ph-front"></div>
             </div>
             <div class="face back" id="back">
-              <div class="segs" style="opacity:.35"></div>
               <div class="print-layer" id="print"></div>
             </div>
             <div class="edge t"></div><div class="edge b"></div><div class="edge l"></div><div class="edge r"></div>
@@ -593,6 +594,7 @@ function alBadges(list,noneText='Ingen allergener'){const{c,t}=splitAl(list);if(
 function plateAl(){const l=[];if(s.choc)l.push(...CH[s.choc].al);s.fill.forEach(k=>l.push(...CA[k].al));return l}
 const excluded=k=>CA[k].al.some(a=>s.avoid.includes(a.replace(' (spor)','')));
 let s=fresh();
+document.addEventListener('DOMContentLoaded',()=>{const m=document.getElementById('mold');if(m)m.innerHTML=moldSVG()});
 const $=id=>document.getElementById(id);
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -712,12 +714,32 @@ function currentRelief(){
     if(document.fonts&&!document.fonts.check(`40px ${F.f}`)){document.fonts.load(`40px ${F.f}`).then(()=>{textRelief.key='';paintBar()});}
     textRelief={key,url:makeTextRelief(n,F)}}
   return textRelief.url}
+/* Støpeform: kun lys og skygge (gjennomsiktig), så den passer alle sjokoladetyper og helleanimasjonen. */
+function moldSVG(){const cw=82.5,chh=105,g=2.5,b=7;let o=`<defs><linearGradient id="mGloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".13"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".06"/></linearGradient></defs>`;
+  let grooves='M0 0H330V210H0Z';
+  for(let r=0;r<2;r++)for(let c=0;c<4;c++){const x=c*cw+g,y=r*chh+g,w=cw-2*g,h=chh-2*g,X=x+w,Y=y+h;grooves+=`M${x} ${y}V${Y}H${X}V${y}Z`;
+    o+=`<path d="M${x} ${y}H${X}L${X-b} ${y+b}H${x+b}Z" fill="#fff" fill-opacity=".2"/><path d="M${x} ${y}L${x+b} ${y+b}V${Y-b}L${x} ${Y}Z" fill="#fff" fill-opacity=".1"/>`+
+       `<path d="M${x} ${Y}L${x+b} ${Y-b}H${X-b}L${X} ${Y}Z" fill="#000" fill-opacity=".3"/><path d="M${X} ${y}L${X-b} ${y+b}V${Y-b}L${X} ${Y}Z" fill="#000" fill-opacity=".2"/>`+
+       `<rect x="${x+b}" y="${y+b}" width="${w-2*b}" height="${h-2*b}" fill="url(#mGloss)"/>`}
+  return `<path d="${grooves}" fill="#000" fill-opacity=".38" fill-rule="evenodd"/>`+o}
+/* Godteri med volum: diffust lys, glans og en liten skygge ned på sjokoladen. */
+const CANDY_FX=`<defs><filter id="c3d" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+<feGaussianBlur in="SourceAlpha" stdDeviation="1.4" result="b"/>
+<feDiffuseLighting in="b" surfaceScale="2.6" diffuseConstant="1.15" lighting-color="#fff" result="d"><feDistantLight azimuth="225" elevation="52"/></feDiffuseLighting>
+<feComposite in="SourceGraphic" in2="d" operator="arithmetic" k1="1" result="shaded"/>
+<feSpecularLighting in="b" surfaceScale="2.6" specularConstant=".75" specularExponent="24" lighting-color="#fff" result="sp"><feDistantLight azimuth="225" elevation="52"/></feSpecularLighting>
+<feComposite in="sp" in2="SourceAlpha" operator="in" result="spIn"/>
+<feComposite in="shaded" in2="spIn" operator="arithmetic" k2="1" k3=".6" result="lit"/>
+<feComposite in="lit" in2="SourceAlpha" operator="in" result="litIn"/>
+<feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="sb"/><feOffset in="sb" dx="1.3" dy="2.1" result="so"/>
+<feFlood flood-color="#1a0b04" flood-opacity=".55"/><feComposite in2="so" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="litIn"/></feMerge></filter></defs>`;
 function paintBar(){
   const ch=s.choc?CH[s.choc]:{c:'#4E6F6C',e:'#35504E',ink:'#E6F2EF'};
   $('bar').style.setProperty('--bar',ch.c);$('bar').style.setProperty('--bar-edge',ch.e);
-  ['front','back'].forEach(id=>$(id).style.background=ch.c);
+  ['front','back'].forEach(id=>$(id).style.backgroundColor=ch.c);
   let g='';if(s.fill.length){SPOTS.forEach((p,i)=>{const k=s.fill[i%s.fill.length];g+=candy(k,p[0],p[1],p[2],p[3],k===s.justAdded&&!reduce?'falling':'')})}
-  $('candy').innerHTML=g;
+  $('candy').innerHTML=CANDY_FX+`<g filter="url(#c3d)">${g}</g>`;
   if(s.justAdded&&!reduce)$('candy').querySelectorAll('.falling').forEach((e,i)=>e.style.animationDelay=(i*45)+'ms');
   s.justAdded=null;
   $('ph-front').style.color=ch.ink;
@@ -773,7 +795,7 @@ function downloadRecipe(){
 function cropStyle(){const r=cropRect(s.crop,s.src.w,s.src.h,330,210);return `left:${r[0]/3.3}%;top:${r[1]/2.1}%;width:${r[2]/3.3}%;height:${r[3]/2.1}%`}
 function cropperHTML(){const ch=CH[s.choc],mz=maxZ(s.src.w,s.src.h);
   return `<div class="field"><span>Plasser bildet på platen</span><div class="crop-frame" id="cropFrame" style="background:${ch.c}" role="application" aria-label="Bildeutsnitt. Dra for å flytte, bruk piltastene for å flytte og pluss eller minus for å zoome." tabindex="0">
-    <span class="crop-relief" id="cropRelief" style="background-image:url(${s.img})"></span><span class="crop-segs"></span></div>
+    <span class="crop-relief" id="cropRelief" style="background-image:url(${s.img})"></span><span class="crop-sheen"></span></div>
     <div class="crop-ctrl"><button class="zbtn" type="button" id="zOut" aria-label="Zoom ut">−</button><input type="range" id="zoom" min="1" max="${mz.toFixed(2)}" step="0.01" value="${s.crop.z.toFixed(2)}" aria-label="Zoom"><button class="zbtn" type="button" id="zIn" aria-label="Zoom inn">+</button><button class="btn-ghost small-ghost" type="button" id="cropFit">Fyll platen</button><button class="btn-ghost small-ghost" type="button" id="cropAll">Vis hele</button><button class="btn-ghost small-ghost" type="button" id="cropRot" aria-label="Roter bildet 90 grader"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Roter</button></div>
     <p class="ink-note">Dra i bildet for å flytte det, zoom med glideren eller to fingre. Motivet støpes som et hevet relieff i sjokoladen. <label class="link-btn" for="up" tabindex="0" id="swapImg">Bytt bilde</label> · <button class="link-btn" type="button" id="rm">Fjern</button></p></div>`}
 let cropTimer=null;
@@ -884,14 +906,14 @@ async function drawCard(){
   cx.font='800 44px Nunito, sans-serif';cx.fillStyle='#5A3A14';cx.fillText('Jeg har laget min egen sjokolade!',W/2,250);
   const BW=820,BH=Math.round(BW*210/330);
   // forside med fyll
-  const segs='<path d="M82.5 0V210M165 0V210M247.5 0V210M0 105H330" stroke="rgba(0,0,0,.22)" stroke-width="4"/>';
+
   let g='';SPOTS.forEach((p,i)=>{g+=candy(s.fill[i%s.fill.length],p[0],p[1],p[2],p[3])});
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 210" width="${BW}" height="${BH}"><rect width="330" height="210" fill="${ch.c}"/>${segs}${g}</svg>`;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 210" width="${BW}" height="${BH}"><defs><linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".13"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient></defs><rect width="330" height="210" fill="${ch.c}"/><rect width="330" height="210" fill="url(#sh)"/>${moldSVG()}${CANDY_FX}<g filter="url(#c3d)">${g}</g></svg>`;
   const front=await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));
   // bakside med trykk
   const back=document.createElement('canvas');back.width=BW;back.height=BH;const bx=back.getContext('2d');bx.fillStyle=ch.c;bx.fillRect(0,0,BW,BH);
   const rel=currentRelief();if(rel){const m=await loadImg(rel);bx.drawImage(m,0,0,BW,BH)}
-  bx.strokeStyle='rgba(0,0,0,.12)';bx.lineWidth=8;bx.beginPath();[.25,.5,.75].forEach(f=>{bx.moveTo(BW*f,0);bx.lineTo(BW*f,BH)});bx.moveTo(0,BH/2);bx.lineTo(BW,BH/2);bx.stroke();
+  {const gr=bx.createLinearGradient(0,0,BW,BH);gr.addColorStop(0,'rgba(255,255,255,.12)');gr.addColorStop(.4,'rgba(255,255,255,0)');gr.addColorStop(.6,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,.14)');bx.fillStyle=gr;bx.fillRect(0,0,BW,BH)}
   const place=(img,cy,rot)=>{cx.save();cx.translate(W/2,cy);cx.rotate(rot*Math.PI/180);cx.shadowColor='rgba(60,30,10,.35)';cx.shadowBlur=40;cx.shadowOffsetY=18;rrect(cx,-BW/2,-BH/2,BW,BH,12);cx.fillStyle=ch.e;cx.fill();cx.shadowColor='transparent';
     cx.save();rrect(cx,-BW/2,-BH/2,BW,BH,12);cx.clip();cx.drawImage(img,-BW/2,-BH/2,BW,BH);cx.restore();cx.lineWidth=10;cx.strokeStyle='rgba(0,0,0,.18)';rrect(cx,-BW/2+5,-BH/2+5,BW-10,BH-10,10);cx.stroke();cx.restore()};
   place(front,620,-6);place(back,1250,5);
