@@ -774,7 +774,7 @@ function cropStyle(){const r=cropRect(s.crop,s.src.w,s.src.h,330,210);return `le
 function cropperHTML(){const ch=CH[s.choc],mz=maxZ(s.src.w,s.src.h);
   return `<div class="field"><span>Plasser bildet på platen</span><div class="crop-frame" id="cropFrame" style="background:${ch.c}" role="application" aria-label="Bildeutsnitt. Dra for å flytte, bruk piltastene for å flytte og pluss eller minus for å zoome." tabindex="0">
     <span class="crop-relief" id="cropRelief" style="background-image:url(${s.img})"></span><span class="crop-segs"></span></div>
-    <div class="crop-ctrl"><button class="zbtn" type="button" id="zOut" aria-label="Zoom ut">−</button><input type="range" id="zoom" min="1" max="${mz.toFixed(2)}" step="0.01" value="${s.crop.z.toFixed(2)}" aria-label="Zoom"><button class="zbtn" type="button" id="zIn" aria-label="Zoom inn">+</button><button class="btn-ghost small-ghost" type="button" id="cropFit">Fyll platen</button><button class="btn-ghost small-ghost" type="button" id="cropAll">Vis hele</button></div>
+    <div class="crop-ctrl"><button class="zbtn" type="button" id="zOut" aria-label="Zoom ut">−</button><input type="range" id="zoom" min="1" max="${mz.toFixed(2)}" step="0.01" value="${s.crop.z.toFixed(2)}" aria-label="Zoom"><button class="zbtn" type="button" id="zIn" aria-label="Zoom inn">+</button><button class="btn-ghost small-ghost" type="button" id="cropFit">Fyll platen</button><button class="btn-ghost small-ghost" type="button" id="cropAll">Vis hele</button><button class="btn-ghost small-ghost" type="button" id="cropRot" aria-label="Roter bildet 90 grader"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Roter</button></div>
     <p class="ink-note">Dra i bildet for å flytte det, zoom med glideren eller to fingre. Motivet støpes som et hevet relieff i sjokoladen. <label class="link-btn" for="up" tabindex="0" id="swapImg">Bytt bilde</label> · <button class="link-btn" type="button" id="rm">Fjern</button></p></div>`}
 let cropTimer=null;
 function applyCrop(final){const z=$('zoom');if(z)z.value=s.crop.z.toFixed(2);
@@ -795,6 +795,8 @@ function bindCropper(){const fr=$('cropFrame');if(!fr)return;const pts=new Map()
     if(m){e.preventDefault();setCrop({...s.crop,x:s.crop.x+m[0],y:s.crop.y+m[1]},true)}else if(e.key==='+'||e.key==='='){e.preventDefault();setCrop({...s.crop,z:s.crop.z*1.1},true)}else if(e.key==='-'){e.preventDefault();setCrop({...s.crop,z:s.crop.z/1.1},true)}});
   const z=$('zoom');z.oninput=()=>setCrop({...s.crop,z:+z.value},false);z.onchange=()=>applyCrop(true);
   $('zIn').onclick=()=>setCrop({...s.crop,z:s.crop.z*1.15},true);$('zOut').onclick=()=>setCrop({...s.crop,z:s.crop.z/1.15},true);
+  $('cropRot').onclick=()=>{const o=s.src.cv,c=document.createElement('canvas');c.width=o.height;c.height=o.width;const x=c.getContext('2d');x.translate(c.width,0);x.rotate(Math.PI/2);x.drawImage(o,0,0);
+    s.src={cv:c,w:c.width,h:c.height};s.crop=defaultCrop(c.width,c.height);s.img=makePrint(c,s.crop);s.card=null;clank();render();setRot(180);const b=$('cropRot');if(b)b.focus()};
   $('cropFit').onclick=()=>{setCrop({z:coverZ(s.src.w,s.src.h),x:0,y:0},true);clank()};$('cropAll').onclick=()=>{setCrop({z:1,x:0,y:0},true);clank()};
   const sw=$('swapImg');if(sw)sw.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('up').click()}}}
 function title(i,t){return `<div class="title-plate"><span class="medal">${i}</span><h2 class="plate">${t}</h2></div>`}
@@ -942,7 +944,7 @@ function bind(){
     r.onload=()=>{const im=new Image();im.onerror=()=>{if(s===current)err('Filen kunne ikke åpnes som et bilde.')};im.onload=()=>{
       if(s!==current)return;
       const k=Math.min(1,1600/Math.max(im.width,im.height)),src=document.createElement('canvas');src.width=Math.max(1,Math.round(im.width*k));src.height=Math.max(1,Math.round(im.height*k));src.getContext('2d').drawImage(im,0,0,src.width,src.height);
-      s.src={cv:src,url:src.toDataURL('image/jpeg',.9),w:src.width,h:src.height};s.crop=defaultCrop(src.width,src.height);s.img=makePrint(src,s.crop);s.err='';if(s.step===2){render();setRot(180);stampPrint();plop()}
+      s.src={cv:src,w:src.width,h:src.height};s.crop=defaultCrop(src.width,src.height);s.img=makePrint(src,s.crop);s.err='';if(s.step===2){render();setRot(180);stampPrint();plop()}
     };im.src=r.result};r.readAsDataURL(f)
   };
   if(up)up.onchange=e=>load(e.target.files[0]);
