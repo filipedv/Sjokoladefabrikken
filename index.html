@@ -788,10 +788,6 @@ function validThrough(){if(!s.choc)return 0;if(!s.fill.length)return 1;if(s.mode
 function updateSummary(){
   $('summary').innerHTML=`<div class="summary-heading"><strong>Din kreasjon</strong><span>189 kr · eksempelpris</span></div><p>${s.choc?esc(CH[s.choc].full):'Begynn med sjokoladen du liker best.'}${s.choc?' · ca. '+(s.fill.length?180:70)+' g':''}</p><div class="chips">${s.fill.map(k=>`<span class="chip">${esc(CA[k].n)}</span>`).join('')}${s.mode==='text'&&s.text.trim()?`<span class="chip">«${esc(s.text.trim())}»</span>`:s.mode==='image'&&s.img?'<span class="chip">Støpt bilde</span>':''}</div>`+(s.choc?`<div class="sum-al">Allergener: ${alBadges(plateAl())}</div>`:'');
 }
-function downloadRecipe(){
-  const recipe=['SJOKOLADEFABRIKKEN — MIN OPPSKRIFT','',CH[s.choc].full,'Fyll: '+s.fill.map(k=>CA[k].n).join(', '),'Motiv på baksiden: '+(s.mode==='text'?s.text.trim()+' ('+FONTS[s.font].n+' skrift)':'Eget bilde')+', støpt som hevet relieff','Allergener: '+(()=>{const{c,t}=splitAl(plateAl());return [c.join(', ')||'ingen',t.length?'kan inneholde spor av '+t.join(', '):''].filter(Boolean).join('; ')})(),'Ca. 70 g sjokolade + 110 g fyll','','Prototype for brukertesting. Ingen bestilling er sendt.','Ingrediens- og allergenopplysninger er kun eksempeldata.'].join('\n');
-  const url=URL.createObjectURL(new Blob([recipe],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Min-sjokoladeoppskrift.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
 function cropStyle(){const r=cropRect(s.crop,s.src.w,s.src.h,330,210);return `left:${r[0]/3.3}%;top:${r[1]/2.1}%;width:${r[2]/3.3}%;height:${r[3]/2.1}%`}
 function cropperHTML(){const ch=CH[s.choc],mz=maxZ(s.src.w,s.src.h);
   return `<div class="field"><span>Plasser bildet på platen</span><div class="crop-frame" id="cropFrame" style="background:${ch.c}" role="application" aria-label="Bildeutsnitt. Dra for å flytte, bruk piltastene for å flytte og pluss eller minus for å zoome." tabindex="0">
@@ -879,7 +875,7 @@ function render(){
       <div class="price"><span>189 kr</span><small>Eksempelpris · frakt kommer i tillegg</small></div></div>
     <div class="decl-al decl" role="note"><h4>Allergener i platen din</h4>${alBadges(plateAl(),'Ingen allergener i valgene dine')}<p>Eksempeldata for brukertesting, ikke en fullstendig ingrediens- eller allergenliste.</p></div>`+
     (s.ordered?`<div class="done-msg"><big>Platen din er ferdig!</big>Demoordre ${s.order}. Dette er en prototype, så ingen ordre er sendt på ordentlig.</div>
-`+shareCard()+`<div class="final" style="margin-top:12px"><button class="btn-ghost" type="button" id="downloadRecipe">Lagre oppskrift</button><button class="btn-ghost" type="button" id="again">Lag en ny plate</button></div>`
+`+shareCard()
     :`<div class="final"><button class="btn-enamel" type="button" id="order">Prøv pakking av platen</button></div>`+nav(''));
   }
   $('panel').classList.toggle('is-done',!!s.ordered);$('panel').classList.toggle('is-sharing',!!s.ordered);$('panel').innerHTML=`<div class="step-note">Stasjon ${s.step+1} av 4</div>`+h;bind();paintBar();updateSummary();
@@ -991,8 +987,6 @@ function bind(){
     const gone=s.fill.filter(excluded);s.fill=s.fill.filter(k=>!excluded(k));
     s.alNote=gone.length?'Fjernet fra platen: '+gone.map(k=>CA[k].n).join(', ')+'.':'';s.err='';clank();render();
     const nb=document.querySelector(`[data-avoid="${a}"]`);if(nb)nb.focus()});
-  const dl=$('downloadRecipe');if(dl)dl.onclick=downloadRecipe;
-  const ag=$('again');if(ag)ag.onclick=resetAll;
 }
 let productionTimer=null;
 function sendToProduction(){
